@@ -1,26 +1,582 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Light theme - CityBuild branding */
+  --primary: #A0522D;
+  --primary-foreground: #ffffff;
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: #FFF8F0;
+  --accent-foreground: #A0522D;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: #ffffff;
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --page-background: #f8fafc;
+  --radius: 0.625rem;
+
+  /* Modern app color palette */
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --pink-500: #ec4899;
+  --pink-600: #db2777;
+  --green-500: #10b981;
+  --green-600: #059669;
+  --orange-500: #f59e0b;
+  --orange-600: #d97706;
+  --purple-500: #8b5cf6;
+  --purple-600: #7c3aed;
+
+  /* CityBuild Brand palette */
+  --brand-50: #fdf6f3;
+  --brand-100: #fae8e1;
+  --brand-200: #f5d5c8;
+  --brand-300: #edb8a3;
+  --brand-400: #e39477;
+  --brand-500: #d97854;
+  --brand-600: #c85d3a;
+  --brand-700: #A0522D;
+  --brand-800: #8b4628;
+  --brand-900: #723c26;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: hsl(0 0% 98%);
+  --sidebar-foreground: hsl(240 5.3% 26.1%);
+  --sidebar-primary: hsl(240 5.9% 10%);
+  --sidebar-primary-foreground: hsl(0 0% 98%);
+  --sidebar-accent: hsl(240 4.8% 95.9%);
+  --sidebar-accent-foreground: hsl(240 5.9% 10%);
+  --sidebar-border: hsl(220 13% 91%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  /* Dark theme - CityBuild dark mode */
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --primary: #d97854;
+  --primary-foreground: #ffffff;
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: #ffffff;
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --page-background: #0f172a;
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: hsl(240 5.9% 10%);
+  --sidebar-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-primary: hsl(224.3 76.3% 48%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(240 3.7% 15.9%);
+  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-border: hsl(240 3.7% 15.9%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
 
 body {
+  background: var(--page-background);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Header background */
+header {
+  background: var(--card);
+  border-bottom: 2px solid var(--border);
+  backdrop-filter: blur(10px);
+}
+
+/* Main content areas should have solid backgrounds */
+main {
+  background: var(--page-background);
+  min-height: 100vh;
+}
+
+/* Remove problematic global background inheritance */
+
+/* Smooth transitions - no box-shadow transitions */
+*,
+*::before,
+*::after {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Solid app cards with strong backgrounds - no shadows */
+.card {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.dark .card {
+  border-color: var(--border);
+}
+
+/* Simple hover effect for interactive cards */
+.card:hover {
+  border-color: var(--primary);
+}
+
+.dark .card:hover {
+  border-color: var(--primary);
+}
+
+/* Solid colorful cards - no gradients */
+.card-blue {
+  background: var(--blue-500);
+  color: white;
+  border: none;
+}
+
+.card-pink {
+  background: var(--pink-500);
+  color: white;
+  border: none;
+}
+
+.card-green {
+  background: var(--green-500);
+  color: white;
+  border: none;
+}
+
+.card-orange {
+  background: var(--orange-500);
+  color: white;
+  border: none;
+}
+
+.card-purple {
+  background: var(--purple-500);
+  color: white;
+  border: none;
+}
+
+/* Brand accents - solid colors */
+.brand-solid {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.brand-text {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Accent color utilities - subtle usage */
+.accent-bg {
+  background: #FFF8F0;
+  color: var(--primary);
+}
+
+.accent-border {
+  border-color: #FFE4B5;
+}
+
+.accent-highlight {
+  background: #FFA500;
+  color: white;
+}
+
+.accent-subtle {
+  background: var(--primary)/5;
+  color: var(--primary);
+}
+
+/* Solid buttons - no shadows */
+.btn-primary {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-weight: 600;
+  border-radius: 1rem;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--primary);
+}
+
+.btn-primary:hover {
+  background: #8b4628;
+  border-color: #8b4628;
+}
+
+.dark .btn-primary {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.dark .btn-primary:hover {
+  background: #e39477;
+  border-color: #e39477;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 8px;
+  border: 2px solid var(--background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8b4628;
+  border-width: 1px;
+}
+
+/* Solid app backgrounds - no transparency */
+.app-background {
+  background: #f8fafc;
+}
+
+.dark .app-background {
+  background: #0f172a;
+}
+
+/* Solid background utilities */
+.solid-background {
   background: var(--background);
+}
+
+.solid-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+
+.solid-card-enhanced {
+  background: var(--card);
+  border: 2px solid var(--border);
+}
+
+.solid-secondary {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+}
+
+.solid-muted {
+  background: var(--muted);
+  border: 1px solid var(--border);
+}
+
+/* Modal and overlay backgrounds */
+.modal-backdrop {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.modal-content {
+  background: var(--card);
+  border: 2px solid var(--border);
+}
+
+/* Widget backgrounds - solid and strong */
+.widget-primary {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: 1rem;
+}
+
+.dark .widget-primary {
+  background: var(--card);
+  border-color: var(--border);
+}
+
+.widget-secondary {
+  background: var(--secondary);
+  border: 2px solid var(--border);
+  border-radius: 1rem;
+}
+
+.dark .widget-secondary {
+  background: var(--secondary);
+  border-color: var(--border);
+}
+
+.widget-accent {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border: 2px solid var(--primary);
+  border-radius: 1rem;
+  font-weight: 600;
+}
+
+/* Notification backgrounds - completely solid */
+.notification-card {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-left: 6px solid var(--muted-foreground);
+}
+
+.notification-unread {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border: 3px solid var(--primary);
+  border-left: 6px solid var(--primary-foreground);
+  font-weight: 600;
+}
+
+/* Form element backgrounds */
+.input-solid {
+  background: var(--background);
+  border: 2px solid var(--input);
+  border-radius: 0.5rem;
+}
+
+.input-solid:focus {
+  outline: none;
+  border-color: var(--ring);
+}
+
+.select-solid {
+  background: var(--background);
+  border: 2px solid var(--input);
+  border-radius: 0.5rem;
+}
+
+.select-solid:focus {
+  outline: none;
+  border-color: var(--ring);
+}
+
+/* Section backgrounds for hierarchy */
+.section-primary {
+  background: var(--background);
+}
+
+.section-secondary {
+  background: var(--secondary);
+}
+
+.section-tertiary {
+  background: var(--muted);
+}
+
+/* Toast notification backgrounds */
+.toast-base {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: 1rem;
+}
+
+.toast-success {
+  background: var(--green-500);
+  color: white;
+  border: 2px solid var(--green-600);
+}
+
+.toast-error {
+  background: var(--destructive);
+  color: white;
+  border: 2px solid #dc2626;
+}
+
+.toast-warning {
+  background: var(--orange-500);
+  color: white;
+  border: 2px solid var(--orange-600);
+}
+
+.toast-info {
+  background: var(--blue-500);
+  color: white;
+  border: 2px solid var(--blue-600);
+}
+
+/* Solid stats cards */
+.stats-card {
+  background: var(--card);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 2px solid var(--border);
+}
+
+.stats-number {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+.stats-label {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin-top: 0.25rem;
+}
+
+/* Progress bars */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--muted);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Modern buttons */
+.btn-modern {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+/* Page and section containers */
+.page-container {
+  background: var(--page-background);
+  min-height: 100vh;
+}
+
+.page-section {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.page-header {
+  background: var(--card);
+  border-bottom: 2px solid var(--border);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Menu item backgrounds - solid, no transparency */
+.menu-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  transition: background-color 0.2s ease;
+}
+
+.menu-item:hover {
+  background: var(--secondary);
+  border-color: var(--primary);
+}
+
+.menu-item.active {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border: 2px solid var(--primary);
+  font-weight: 600;
+}
+
+/* Panel backgrounds */
+.panel-container {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: 1rem;
+}
+
+.panel-header {
+  background: var(--secondary);
+  border-bottom: 2px solid var(--border);
+  padding: 1rem 1.5rem;
+}
+
+.panel-body {
+  background: var(--card);
+  padding: 1.5rem;
+}
+
+.panel-footer {
+  background: var(--secondary);
+  border-top: 2px solid var(--border);
+  padding: 1rem 1.5rem;
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }

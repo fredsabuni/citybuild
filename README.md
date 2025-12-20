@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CityBuild MVP - Construction Marketplace
+
+A Next.js web application that serves as a construction marketplace connecting building material suppliers, contractors, and subcontractors.
+
+## Features
+
+- **Mobile-First Design**: Responsive interface optimized for touch devices
+- **Theme Support**: Light/dark mode with smooth transitions
+- **Role-Based Access**: Different interfaces for GCs, Subcontractors, Suppliers, and Banks
+- **Reusable Components**: Widget-based architecture for rapid development
+- **Modern Stack**: Next.js 14, TypeScript, Tailwind CSS
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+### Project Structure
+
+```
+src/
+├── app/                 # Next.js app router pages
+├── components/          # React components
+│   ├── ui/             # Basic UI components
+│   ├── widgets/        # Reusable widget components
+│   └── layout/         # Layout components
+├── lib/                # Utilities and context
+├── types/              # TypeScript type definitions
+├── data/               # Mock data for development
+└── hooks/              # Custom React hooks
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technology Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Frontend**: Next.js 14 with App Router
+- **Styling**: Tailwind CSS with CSS variables for theming
+- **State Management**: React Context + useState
+- **UI Components**: Headless UI + custom reusable widgets
+- **Icons**: Heroicons
+- **TypeScript**: Full type safety
+- **Development**: Hot reload, ESLint, Prettier
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Theme System
 
-## Learn More
+The application includes a comprehensive theme system supporting light and dark modes:
 
-To learn more about Next.js, take a look at the following resources:
+- CSS variables for consistent theming
+- Automatic system preference detection
+- Manual theme toggle
+- Smooth transitions between themes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Development
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Available Scripts
 
-## Deploy on Vercel
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Mock Data
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The application uses mock data for development located in `src/data/`:
+- `mockUsers.ts` - Sample users with different roles
+- `mockProjects.ts` - Sample projects and bids
+
+## Next Steps
+
+This foundation provides:
+1. ✅ Next.js 14 project with TypeScript
+2. ✅ Tailwind CSS with theme system
+3. ✅ Project structure and mock data
+4. ✅ Basic landing page with theme toggle
+
+Ready for implementing:
+- Core reusable widget components
+- Layout system with left-sliding navigation
+- Authentication and role management UI
+- Role-specific dashboards
+- Project and bidding interfaces
+
+## License
+
+MIT License
