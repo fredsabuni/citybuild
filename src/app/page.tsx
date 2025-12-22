@@ -60,17 +60,17 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-orange-50 dark:from-blue-950/20 dark:via-purple-950/20 dark:to-orange-950/20">
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10 dark:from-primary/10 dark:via-accent/10 dark:to-primary/20">
         {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-orange-400/20 to-pink-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-green-400/10 to-blue-400/10 rounded-full blur-3xl animate-pulse delay-500"></div>
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-accent/20 to-primary/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full blur-3xl animate-pulse delay-500"></div>
         </div>
 
         <div className="container mx-auto px-4 py-20 lg:py-32 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl lg:text-7xl font-bold mb-8 bg-gradient-to-r from-blue-600 via-purple-600 to-orange-600 bg-clip-text text-transparent">
+            <h1 className="text-display-lg mb-8 text-primary">
               Construction Procurement, Reimagined
             </h1>
             <p className="text-xl lg:text-2xl text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto">
@@ -80,13 +80,13 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
               <button
                 onClick={() => router.push('/dashboard')}
-                className="px-10 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl text-lg transform hover:scale-105"
+                className="btn-primary text-lg px-10 py-4"
               >
                 Start Building Today
               </button>
               <button
                 onClick={() => scrollToSection('how-it-works')}
-                className="px-10 py-4 border-2 border-gradient-to-r from-blue-600 to-purple-600 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/50 dark:to-purple-950/50 rounded-2xl font-semibold hover:from-blue-100 hover:to-purple-100 dark:hover:from-blue-900/50 dark:hover:to-purple-900/50 transition-all duration-300 text-lg"
+                className="px-10 py-4 border-2 border-primary text-primary rounded-xl font-semibold hover:bg-primary hover:text-primary-foreground transition-all duration-300 text-lg"
               >
                 See How It Works
               </button>
@@ -94,21 +94,21 @@ export default function Home() {
 
             {/* Key Stats */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-4xl mx-auto">
-              <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/30 dark:to-blue-800/30 border border-blue-200 dark:border-blue-700">
-                <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-2">24/7</div>
-                <div className="text-blue-700 dark:text-blue-300 font-medium">AI-Powered Bidding</div>
+              <div className="text-center p-6 rounded-2xl bg-card border-2 border-primary/20 hover:border-primary transition-colors">
+                <div className="text-display-sm text-primary mb-2">24/7</div>
+                <div className="text-sm font-medium text-muted-foreground">AI-Powered Bidding</div>
               </div>
-              <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-800/30 border border-green-200 dark:border-green-700">
-                <div className="text-4xl font-bold bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent mb-2">100%</div>
-                <div className="text-green-700 dark:text-green-300 font-medium">Funding Verified</div>
+              <div className="text-center p-6 rounded-2xl bg-card border-2 border-success/20 hover:border-success transition-colors">
+                <div className="text-display-sm text-success mb-2">100%</div>
+                <div className="text-sm font-medium text-muted-foreground">Funding Verified</div>
               </div>
-              <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900/30 dark:to-purple-800/30 border border-purple-200 dark:border-purple-700">
-                <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent mb-2">Real-time</div>
-                <div className="text-purple-700 dark:text-purple-300 font-medium">Price Discovery</div>
+              <div className="text-center p-6 rounded-2xl bg-card border-2 border-accent/20 hover:border-accent transition-colors">
+                <div className="text-display-sm text-accent-foreground mb-2">Real-time</div>
+                <div className="text-sm font-medium text-muted-foreground">Price Discovery</div>
               </div>
-              <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-900/30 dark:to-orange-800/30 border border-orange-200 dark:border-orange-700">
-                <div className="text-4xl font-bold bg-gradient-to-r from-orange-600 to-orange-800 bg-clip-text text-transparent mb-2">Zero</div>
-                <div className="text-orange-700 dark:text-orange-300 font-medium">Back-office Friction</div>
+              <div className="text-center p-6 rounded-2xl bg-card border-2 border-primary/20 hover:border-primary transition-colors">
+                <div className="text-display-sm text-primary mb-2">Zero</div>
+                <div className="text-sm font-medium text-muted-foreground">Back-office Friction</div>
               </div>
             </div>
           </div>
@@ -116,46 +116,46 @@ export default function Home() {
 
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ChevronDownIcon className="w-6 h-6 text-purple-600" />
+          <ChevronDownIcon className="w-6 h-6 text-primary" />
         </div>
       </section>
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-20 bg-gradient-to-br from-indigo-50 via-cyan-50 to-teal-50 dark:from-indigo-950/20 dark:via-cyan-950/20 dark:to-teal-950/20">
+      <section id="how-it-works" className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-indigo-600 to-teal-600 bg-clip-text text-transparent">How CityBuild Works</h2>
+            <h2 className="text-display-md text-primary mb-6">How CityBuild Works</h2>
             <p className="text-xl text-muted-foreground">
               Our AI reads your project plans the moment they're filed for permits—instantly generating a complete, trade-specific material list and routing it to a verified supplier network in real time.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-950/50 dark:to-indigo-900/50 border border-blue-200 dark:border-blue-700 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+            <div className="bg-card border-2 border-primary/20 hover:border-primary rounded-2xl p-8 text-center transition-all duration-300 transform hover:scale-105">
+              <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <span className="text-3xl">🤖</span>
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-blue-800 dark:text-blue-200">AI Plan Analysis</h3>
-              <p className="text-blue-700 dark:text-blue-300">
+              <h3 className="text-2xl font-bold mb-4 text-primary">AI Plan Analysis</h3>
+              <p className="text-muted-foreground">
                 Our GPU-native infrastructure processes project plans instantly, generating complete material lists for every trade automatically.
               </p>
             </div>
 
-            <div className="bg-gradient-to-br from-purple-50 to-pink-100 dark:from-purple-950/50 dark:to-pink-900/50 border border-purple-200 dark:border-purple-700 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+            <div className="bg-card border-2 border-accent/20 hover:border-accent rounded-2xl p-8 text-center transition-all duration-300 transform hover:scale-105">
+              <div className="w-16 h-16 bg-accent rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <span className="text-3xl">⚡</span>
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-purple-800 dark:text-purple-200">Real-time Bidding</h3>
-              <p className="text-purple-700 dark:text-purple-300">
+              <h3 className="text-2xl font-bold mb-4 text-accent-foreground">Real-time Bidding</h3>
+              <p className="text-muted-foreground">
                 Thousands of supplier bids processed around the clock, 24/7, with zero back-office bottlenecks. No human could match this speed or scale.
               </p>
             </div>
 
-            <div className="bg-gradient-to-br from-emerald-50 to-teal-100 dark:from-emerald-950/50 dark:to-teal-900/50 border border-emerald-200 dark:border-emerald-700 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-              <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+            <div className="bg-card border-2 border-success/20 hover:border-success rounded-2xl p-8 text-center transition-all duration-300 transform hover:scale-105">
+              <div className="w-16 h-16 bg-success rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <span className="text-3xl">🔒</span>
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-emerald-800 dark:text-emerald-200">Verified & Secured</h3>
-              <p className="text-emerald-700 dark:text-emerald-300">
+              <h3 className="text-2xl font-bold mb-4 text-success">Verified & Secured</h3>
+              <p className="text-muted-foreground">
                 Funding verification and locked pricing upfront. Integrated payment systems with flexible terms mean predictable cash flow for everyone.
               </p>
             </div>
@@ -176,18 +176,18 @@ export default function Home() {
           {/* Tab Navigation */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             {[
-              { id: 'owner', label: 'Owner / Developer', icon: '🏢', color: 'from-blue-500 to-blue-600' },
-              { id: 'contractor', label: 'General Contractor', icon: '👷', color: 'from-green-500 to-green-600' },
-              { id: 'subcontractor', label: 'Subcontractor', icon: '🔧', color: 'from-purple-500 to-purple-600' },
-              { id: 'supplier', label: 'Distributor / Supplier', icon: '📦', color: 'from-orange-500 to-orange-600' }
+              { id: 'owner', label: 'Owner / Developer', icon: '🏢' },
+              { id: 'contractor', label: 'General Contractor', icon: '👷' },
+              { id: 'subcontractor', label: 'Subcontractor', icon: '🔧' },
+              { id: 'supplier', label: 'Distributor / Supplier', icon: '📦' }
             ].map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
                   activeTab === tab.id
-                    ? `bg-gradient-to-r ${tab.color} text-white shadow-lg hover:shadow-xl`
-                    : 'bg-card border border-border hover:bg-accent hover:shadow-md'
+                    ? 'bg-primary text-primary-foreground shadow-lg'
+                    : 'bg-card border-2 border-border hover:border-primary hover:shadow-md'
                 }`}
               >
                 <span className="mr-2">{tab.icon}</span>
@@ -649,10 +649,10 @@ export default function Home() {
         </div>
       </section>
       {/* CTA Section */}
-      <section className="py-20">
+      <section className="py-20 bg-gradient-to-br from-primary/5 to-accent/5">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">Ready to Transform Your Construction Procurement?</h2>
+            <h2 className="text-display-md text-primary mb-6">Ready to Transform Your Construction Procurement?</h2>
             <p className="text-xl text-muted-foreground mb-12">
               Join the marketplace that's making construction easier, cheaper, faster—and fully transparent.
             </p>
@@ -660,13 +660,13 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button
                 onClick={() => router.push('/dashboard')}
-                className="px-10 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-2xl font-semibold hover:from-emerald-700 hover:to-teal-700 transition-all duration-300 shadow-lg hover:shadow-xl text-lg transform hover:scale-105"
+                className="btn-primary text-lg px-10 py-4"
               >
                 Get Started Today
               </button>
               <button
                 onClick={() => scrollToSection('how-it-works')}
-                className="px-10 py-4 border-2 border-gradient-to-r from-emerald-600 to-teal-600 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 rounded-2xl font-semibold hover:from-emerald-100 hover:to-teal-100 dark:hover:from-emerald-900/50 dark:hover:to-teal-900/50 transition-all duration-300 text-lg"
+                className="px-10 py-4 border-2 border-accent bg-accent/10 text-accent-foreground rounded-xl font-semibold hover:bg-accent hover:text-accent-foreground transition-all duration-300 text-lg"
               >
                 Learn More
               </button>
