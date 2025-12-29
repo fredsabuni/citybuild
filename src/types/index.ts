@@ -1,14 +1,19 @@
 // Core user types
-export type UserRole = 'gc' | 'subcontractor' | 'supplier' | 'bank';
+export type UserRole = 'gc' | 'subcontractor' | 'supplier' | 'bank' | 'admin';
 
 export interface User {
-  id: string;
+  id?: string;
   email: string;
   phone?: string;
-  role: UserRole;
-  name: string;
-  verified: boolean;
-  createdAt: Date;
+  role?: UserRole;
+  name?: string;
+  verified?: boolean;
+  createdAt?: Date;
+  authenticated?: boolean;
+  organizationName?: string;
+  organizationId?: string;
+  isActive?: boolean;
+  isVerified?: boolean;
 }
 
 // Application state types
@@ -16,6 +21,7 @@ export interface AppState {
   user: User | null;
   theme: 'light' | 'dark';
   sidebarOpen: boolean;
+  showAuthModal?: boolean;
   currentProject?: Project;
 }
 
@@ -66,7 +72,7 @@ export interface CardWidgetProps {
 export interface FormField {
   name: string;
   label: string;
-  type: 'text' | 'email' | 'tel' | 'password' | 'select' | 'textarea' | 'file';
+  type: 'text' | 'email' | 'tel' | 'password' | 'select' | 'textarea' | 'file' | 'date';
   placeholder?: string;
   required?: boolean;
   options?: { value: string; label: string }[];
@@ -83,6 +89,9 @@ export interface FormWidgetProps {
   onSubmit: (data: any) => void;
   loading?: boolean;
   className?: string;
+  initialData?: Record<string, any>;
+  submitText?: string;
+  onFieldChange?: (fieldName: string, value: any, allData: any) => void;
 }
 
 export interface ListWidgetProps<T> {

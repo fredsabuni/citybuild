@@ -1,19 +1,26 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useApp } from '@/lib/context';
+import { setAuthModalCallback } from '@/lib/fetchWithAuth';
 import { cn } from '@/lib/utils';
 import { LayoutProps } from '@/types';
 import SlidePanel from './SlidePanel';
 import Navigation from './Navigation';
 import Header from './Header';
 import RoleSwitcher from '../auth/RoleSwitcher';
+import { AuthModal } from '../auth';
 
 const Layout: React.FC<LayoutProps> = ({ children, userRole, theme }) => {
-  const { sidebarOpen, setSidebarOpen, user } = useApp();
+  const { sidebarOpen, setSidebarOpen, user, showAuthModal, setShowAuthModal } = useApp();
   
   // Use the user role from context if not provided as prop
   const currentUserRole = userRole || user?.role;
+
+  // Set up auth modal callback
+  useEffect(() => {
+    setAuthModalCallback(setShowAuthModal);
+  }, [setShowAuthModal]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -56,6 +63,14 @@ const Layout: React.FC<LayoutProps> = ({ children, userRole, theme }) => {
 
       {/* Demo Role Switcher */}
       <RoleSwitcher />
+
+      {/* Auth Modal */}
+      {showAuthModal && (
+        <AuthModal
+          isOpen={showAuthModal}
+          onClose={() => setShowAuthModal(false)}
+        />
+      )}
     </div>
   );
 };

@@ -59,15 +59,15 @@ export const useToast = () => {
 
   return {
     success: (title: string, message: string, action?: Toast['action']) =>
-      showToast({ title, message, type: 'success', action }),
+      showToast({ title, message, type: 'success', duration: 6000, action }),
     
     error: (title: string, message: string, action?: Toast['action']) =>
-      showToast({ title, message, type: 'error', duration: 8000, action }),
+      showToast({ title, message, type: 'error', duration: 10000, action }),
     
     warning: (title: string, message: string, action?: Toast['action']) =>
-      showToast({ title, message, type: 'warning', duration: 6000, action }),
+      showToast({ title, message, type: 'warning', duration: 8000, action }),
     
     info: (title: string, message: string, action?: Toast['action']) =>
-      showToast({ title, message, type: 'info', action }),
+      showToast({ title, message, type: 'info', duration: 6000, action }),
   };
 };

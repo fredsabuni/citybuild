@@ -22,9 +22,32 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
 }) => {
   const [formData, setFormData] = useState(initialData || {});
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
-  const [currentStep, setCurrentStep] = useState(1);
 
-  const projectFields: FormField[] = [
+  // Auto-calculate timeline when dates change
+  const calculateTimeline = (startDate: string, endDate: string): string => {
+    if (!startDate || !endDate) return '';
+    
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const diffTime = Math.abs(end.getTime() - start.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    const months = Math.round(diffDays / 30);
+    const years = Math.floor(months / 12);
+    const remainingMonths = months % 12;
+    
+    if (years > 0 && remainingMonths > 0) {
+      return `${years} year${years > 1 ? 's' : ''} ${remainingMonths} month${remainingMonths > 1 ? 's' : ''}`;
+    } else if (years > 0) {
+      return `${years} year${years > 1 ? 's' : ''}`;
+    } else if (months > 0) {
+      return `${months} month${months > 1 ? 's' : ''}`;
+    } else {
+      return `${diffDays} day${diffDays > 1 ? 's' : ''}`;
+    }
+  };
+
+  const allFields: FormField[] = [
     {
       name: 'name',
       label: 'Project Name',
@@ -74,45 +97,31 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
       },
     },
     {
-      name: 'timeline',
-      label: 'Expected Timeline',
-      type: 'text',
-      placeholder: 'e.g., 18 months, 2 years',
-      required: true,
-    },
-    {
       name: 'projectType',
       label: 'Project Type',
       type: 'select',
       required: true,
       options: [
-        { value: 'residential', label: 'Residential' },
         { value: 'commercial', label: 'Commercial' },
+        { value: 'residential', label: 'Residential' },
         { value: 'industrial', label: 'Industrial' },
         { value: 'infrastructure', label: 'Infrastructure' },
         { value: 'renovation', label: 'Renovation' },
+        { value: 'mixed_use', label: 'Mixed Use' },
+        { value: 'other', label: 'Other' },
       ],
     },
-  ];
-
-  const additionalFields: FormField[] = [
     {
       name: 'startDate',
       label: 'Planned Start Date',
-      type: 'text',
-      placeholder: 'MM/DD/YYYY',
-      validation: {
-        pattern: /^\d{2}\/\d{2}\/\d{4}$/,
-      },
+      type: 'date',
+      placeholder: 'Select start date',
     },
     {
       name: 'endDate',
       label: 'Planned End Date',
-      type: 'text',
-      placeholder: 'MM/DD/YYYY',
-      validation: {
-        pattern: /^\d{2}\/\d{2}\/\d{4}$/,
-      },
+      type: 'date',
+      placeholder: 'Select end date',
     },
     {
       name: 'specialRequirements',
@@ -123,213 +132,78 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
         maxLength: 500,
       },
     },
-    {
-      name: 'contactPerson',
-      label: 'Primary Contact',
-      type: 'text',
-      placeholder: 'Name of primary contact person',
-    },
-    {
-      name: 'contactPhone',
-      label: 'Contact Phone',
-      type: 'tel',
-      placeholder: '+1 (555) 123-4567',
-      validation: {
-        pattern: /^\+?[\d\s\-\(\)]+$/,
-      },
-    },
   ];
 
-  const handleBasicInfoSubmit = (data: any) => {
-    setFormData({ ...formData, ...data });
-    setCurrentStep(2);
+  const handleFormSubmit = (data: any) => {
+    const estimatedCostNumber = data.estimatedCost
+      ? parseFloat(data.estimatedCost)
+      : undefined;
+
+    // Auto-calculate timeline from dates
+    const timeline = (data.startDate && data.endDate) 
+      ? calculateTimeline(data.startDate, data.endDate)
+      : '';
+
+    const payload: any = {
+      name: data.name,
+      description: data.description,
+      location: data.location || '',
+      project_type: data.projectType || '',
+      estimated_cost: Number.isFinite(estimatedCostNumber) ? estimatedCostNumber : null,
+      timeline: timeline,
+      start_date: data.startDate || '',
+      end_date: data.endDate || '',
+      special_requirements: data.specialRequirements || '',
+    };
+
+    // Only include contact fields if they have values
+    if (data.contactPerson) {
+      payload.contact_person = data.contactPerson;
+    }
+    if (data.contactPhone) {
+      payload.contact_phone = data.contactPhone;
+    }
+    if (data.contactEmail) {
+      payload.contact_email = data.contactEmail;
+    }
+
+    onSubmit(payload);
   };
 
-  const handleAdditionalInfoSubmit = (data: any) => {
-    setFormData({ ...formData, ...data });
-    setCurrentStep(3);
+  const handleFieldChange = (fieldName: string, value: any, allData: any) => {
+    setFormData({ ...allData, [fieldName]: value });
   };
 
   const handleFilesChange = (files: File[]) => {
     setUploadedFiles(files);
   };
 
-  const handleFinalSubmit = () => {
-    const projectData = {
-      ...formData,
-      id: generateId(),
-      planFiles: uploadedFiles.map(file => ({
-        id: generateId(),
-        name: file.name,
-        type: file.type,
-        size: file.size,
-        url: URL.createObjectURL(file), // In real app, this would be uploaded to server
-        uploadedAt: new Date(),
-      })),
-      status: 'draft',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-
-    onSubmit(projectData);
-  };
-
-  const renderStepIndicator = () => (
-    <div className="flex items-center justify-center space-x-4 mb-8">
-      {[1, 2, 3].map((step) => (
-        <div key={step} className="flex items-center">
-          <div
-            className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-              step === currentStep
-                ? 'bg-primary text-primary-foreground'
-                : step < currentStep
-                ? 'bg-green-500 text-white'
-                : 'bg-muted text-muted-foreground'
-            }`}
-          >
-            {step < currentStep ? '✓' : step}
-          </div>
-          {step < 3 && (
-            <div
-              className={`w-12 h-0.5 mx-2 ${
-                step < currentStep ? 'bg-green-500' : 'bg-muted'
-              }`}
-            />
-          )}
-        </div>
-      ))}
-    </div>
-  );
-
-  const renderStepContent = () => {
-    switch (currentStep) {
-      case 1:
-        return (
-          <div className="space-y-6">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold mb-2">Basic Project Information</h2>
-              <p className="text-muted-foreground">
-                Let's start with the essential details about your project
-              </p>
-            </div>
-
-            <FormWidget
-              fields={projectFields}
-              onSubmit={handleBasicInfoSubmit}
-              loading={loading}
-            />
-
-            <div className="flex justify-between">
-              <Button variant="outline" onClick={onCancel}>
-                Cancel
-              </Button>
-              <div /> {/* Spacer */}
-            </div>
-          </div>
-        );
-
-      case 2:
-        return (
-          <div className="space-y-6">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold mb-2">Additional Details</h2>
-              <p className="text-muted-foreground">
-                Provide additional information to help contractors understand your project
-              </p>
-            </div>
-
-            <FormWidget
-              fields={additionalFields}
-              onSubmit={handleAdditionalInfoSubmit}
-              loading={loading}
-            />
-
-            <div className="flex justify-between">
-              <Button variant="outline" onClick={() => setCurrentStep(1)}>
-                Back
-              </Button>
-              <div /> {/* Spacer */}
-            </div>
-          </div>
-        );
-
-      case 3:
-        return (
-          <div className="space-y-6">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold mb-2">Upload Building Plans</h2>
-              <p className="text-muted-foreground">
-                Upload your building plans, blueprints, and related documents
-              </p>
-            </div>
-
-            <FileUpload
-              onFilesChange={handleFilesChange}
-              acceptedTypes={['pdf', 'dwg', 'dxf', 'jpg', 'png']}
-              maxFiles={10}
-              maxSize={25 * 1024 * 1024} // 25MB
-            />
-
-            {/* Project Summary */}
-            <div className="bg-muted/50 rounded-lg p-6">
-              <h3 className="font-semibold mb-4">Project Summary</h3>
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <span className="text-muted-foreground">Name:</span>
-                  <div className="font-medium">{formData.name}</div>
-                </div>
-                <div>
-                  <span className="text-muted-foreground">Type:</span>
-                  <div className="font-medium capitalize">{formData.projectType}</div>
-                </div>
-                <div>
-                  <span className="text-muted-foreground">Budget:</span>
-                  <div className="font-medium">
-                    {formData.estimatedCost ? `$${parseFloat(formData.estimatedCost).toLocaleString()}` : 'Not specified'}
-                  </div>
-                </div>
-                <div>
-                  <span className="text-muted-foreground">Timeline:</span>
-                  <div className="font-medium">{formData.timeline}</div>
-                </div>
-                <div className="col-span-2">
-                  <span className="text-muted-foreground">Location:</span>
-                  <div className="font-medium">{formData.location}</div>
-                </div>
-                <div className="col-span-2">
-                  <span className="text-muted-foreground">Files:</span>
-                  <div className="font-medium">
-                    {uploadedFiles.length} file{uploadedFiles.length !== 1 ? 's' : ''} uploaded
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex justify-between">
-              <Button variant="outline" onClick={() => setCurrentStep(2)}>
-                Back
-              </Button>
-              <div className="space-x-2">
-                <Button variant="outline" onClick={handleFinalSubmit} disabled={loading}>
-                  Save as Draft
-                </Button>
-                <Button onClick={handleFinalSubmit} disabled={loading}>
-                  Create Project
-                </Button>
-              </div>
-            </div>
-          </div>
-        );
-
-      default:
-        return null;
-    }
-  };
-
   return (
     <div className="max-w-2xl mx-auto">
-      {renderStepIndicator()}
-      {renderStepContent()}
+      <div className="space-y-6">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-2">Create New Project</h2>
+          <p className="text-muted-foreground">
+            Fill in the project details below
+          </p>
+        </div>
+
+        <FormWidget
+          fields={allFields}
+          onSubmit={handleFormSubmit}
+          loading={loading}
+          initialData={formData}
+          submitText="Create Project"
+          onFieldChange={handleFieldChange}
+        />
+
+        <div className="flex justify-between">
+          <Button variant="outline" onClick={onCancel}>
+            Cancel
+          </Button>
+          <div /> {/* Spacer */}
+        </div>
+      </div>
     </div>
   );
 };

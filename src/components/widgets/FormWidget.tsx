@@ -7,8 +7,11 @@ const FormWidget: React.FC<FormWidgetProps> = ({
   onSubmit,
   loading = false,
   className,
+  initialData = {},
+  submitText = 'Submit',
+  onFieldChange,
 }) => {
-  const [formData, setFormData] = useState<Record<string, any>>({});
+  const [formData, setFormData] = useState<Record<string, any>>(initialData);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
@@ -42,7 +45,13 @@ const FormWidget: React.FC<FormWidgetProps> = ({
   };
 
   const handleInputChange = (field: FormField, value: any) => {
-    setFormData(prev => ({ ...prev, [field.name]: value }));
+    const newData = { ...formData, [field.name]: value };
+    setFormData(newData);
+    
+    // Call parent's field change handler if provided
+    if (onFieldChange) {
+      onFieldChange(field.name, value, newData);
+    }
     
     // Clear error when user starts typing
     if (errors[field.name]) {
@@ -197,7 +206,7 @@ const FormWidget: React.FC<FormWidgetProps> = ({
             <span>Loading...</span>
           </div>
         ) : (
-          'Submit'
+          submitText
         )}
       </button>
     </form>

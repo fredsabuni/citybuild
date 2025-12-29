@@ -5,14 +5,37 @@ import { CityBuildLogo } from '@/components/ui';
 import { SunIcon, MoonIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { SlidePanel } from '@/components/layout';
+import LoginForm from '@/components/auth/LoginForm';
+import RegisterForm from '@/components/auth/RegisterForm';
 
 export default function Home() {
   const { theme, toggleTheme } = useTheme();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('owner');
+  const [authPanelOpen, setAuthPanelOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
 
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleGetStarted = () => {
+    setAuthMode('login');
+    setAuthPanelOpen(true);
+  };
+
+  const handleAuthSuccess = () => {
+    setAuthPanelOpen(false);
+    router.push('/dashboard');
+  };
+
+  const switchToRegister = () => {
+    setAuthMode('register');
+  };
+
+  const switchToLogin = () => {
+    setAuthMode('login');
   };
 
   return (
@@ -50,7 +73,7 @@ export default function Home() {
               )}
             </button>
             <button
-              onClick={() => router.push('/dashboard')}
+              onClick={handleGetStarted}
               className="px-6 py-2 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-colors"
             >
               Get Started
@@ -79,7 +102,7 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
               <button
-                onClick={() => router.push('/dashboard')}
+                onClick={handleGetStarted}
                 className="btn-primary text-lg px-10 py-4"
               >
                 Start Building Today
@@ -719,6 +742,32 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Auth Slide Panel */}
+      <SlidePanel
+        isOpen={authPanelOpen}
+        onClose={() => setAuthPanelOpen(false)}
+        direction="right"
+        width="lg"
+      >
+        <div className="p-6">
+          <h2 className="text-2xl font-bold mb-6">
+            {authMode === 'login' ? 'Welcome Back' : 'Create Your Account'}
+          </h2>
+          
+          {authMode === 'login' ? (
+            <LoginForm
+              onSuccess={handleAuthSuccess}
+              onSwitchToRegister={switchToRegister}
+            />
+          ) : (
+            <RegisterForm
+              onSuccess={handleAuthSuccess}
+              onSwitchToLogin={switchToLogin}
+            />
+          )}
+        </div>
+      </SlidePanel>
     </div>
   );
 }

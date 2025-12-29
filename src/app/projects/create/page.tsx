@@ -8,6 +8,7 @@ import { CardWidget } from '@/components/widgets';
 import { Button } from '@/components/ui';
 import ProjectForm from '@/components/projects/ProjectForm';
 import { useApp } from '@/lib/context';
+import { fetchWithAuth } from '@/lib/fetchWithAuth';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 
 export default function CreateProjectPage() {
@@ -19,13 +20,24 @@ export default function CreateProjectPage() {
     setLoading(true);
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      console.log('Project created:', projectData);
-      
-      // In a real app, you would save to backend here
-      // For now, we'll just redirect back to projects
+      const res = await fetchWithAuth('/api/v1/projects/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(projectData),
+      });
+
+      if (!res.ok) {
+        if (res.status === 401) {
+          // Auth modal will be shown by fetchWithAuth
+          return;
+        }
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err?.error || `Request failed with ${res.status}`);
+      }
+
+      const created = await res.json();
+      console.log('Project created:', created);
+
       router.push('/projects');
     } catch (error) {
       console.error('Error creating project:', error);

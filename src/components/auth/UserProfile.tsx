@@ -1,9 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useApp } from '@/lib/context';
 import { Button, Badge } from '@/components/ui';
 import { CardWidget } from '@/components/widgets';
+import { api } from '@/lib/api';
+import { useToast } from '@/lib/notificationContext';
 import {
   UserCircleIcon,
   EnvelopeIcon,
@@ -12,6 +15,7 @@ import {
   CheckBadgeIcon,
   PencilIcon,
   ArrowRightOnRectangleIcon,
+  BuildingOfficeIcon,
 } from '@heroicons/react/24/outline';
 
 interface UserProfileProps {
@@ -21,6 +25,9 @@ interface UserProfileProps {
 const UserProfile: React.FC<UserProfileProps> = ({ onEditProfile }) => {
   const { user, setUser } = useApp();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
+  const router = useRouter();
+  const toast = useToast();
 
   if (!user) {
     return (
@@ -32,12 +39,53 @@ const UserProfile: React.FC<UserProfileProps> = ({ onEditProfile }) => {
     );
   }
 
-  const handleLogout = () => {
-    setUser(null);
-    setShowLogoutConfirm(false);
+  const handleLogout = async () => {
+    setLoggingOut(true);
+    try {
+      // 1. Call logout API
+      await api.logout();
+      
+      // 2. Preserve theme before clearing localStorage
+      let savedTheme = null;
+      if (typeof window !== 'undefined') {
+        savedTheme = localStorage.getItem('theme');
+        localStorage.clear();
+        // Restore theme after clearing
+        if (savedTheme) {
+          localStorage.setItem('theme', savedTheme);
+        }
+      }
+      
+      // 3. Clear user context
+      setUser(null);
+      
+      // Show success message
+      toast.success('Logged Out', 'You have been successfully logged out.');
+      
+      // 4. Redirect to index page
+      router.push('/');
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Even if API call fails, still logout locally
+      let savedTheme = null;
+      if (typeof window !== 'undefined') {
+        savedTheme = localStorage.getItem('theme');
+        localStorage.clear();
+        // Restore theme after clearing
+        if (savedTheme) {
+          localStorage.setItem('theme', savedTheme);
+        }
+      }
+      setUser(null);
+      router.push('/');
+    } finally {
+      setLoggingOut(false);
+      setShowLogoutConfirm(false);
+    }
   };
 
-  const getRoleDisplayName = (role: string) => {
+  const getRoleDisplayName = (role?: string) => {
+    if (!role) return 'User';
     const roleNames = {
       gc: 'General Contractor',
       subcontractor: 'Subcontractor',
@@ -47,7 +95,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ onEditProfile }) => {
     return roleNames[role as keyof typeof roleNames] || role;
   };
 
-  const getRoleIcon = (role: string) => {
+  const getRoleIcon = (role?: string) => {
+    if (!role) return '👤';
     const roleIcons = {
       gc: '🏗️',
       subcontractor: '🔨',
@@ -70,12 +119,12 @@ const UserProfile: React.FC<UserProfileProps> = ({ onEditProfile }) => {
                 <span className="text-2xl">{getRoleIcon(user.role)}</span>
               </div>
               <div className="flex-1">
-                <h3 className="text-xl font-semibold">{user.name}</h3>
+                <h3 className="text-xl font-semibold">{user.name || 'User'}</h3>
                 <div className="flex items-center space-x-2">
                   <Badge variant="secondary">
                     {getRoleDisplayName(user.role)}
                   </Badge>
-                  {user.verified && (
+                  {(user.verified || user.isVerified) && (
                     <div className="flex items-center space-x-1 text-green-600">
                       <CheckBadgeIcon className="w-4 h-4" />
                       <span className="text-xs">Verified</span>
@@ -98,25 +147,36 @@ const UserProfile: React.FC<UserProfileProps> = ({ onEditProfile }) => {
                   <span className="text-sm">{user.phone}</span>
                 </div>
               )}
+
+              {user.organizationName && (
+                <div className="flex items-center space-x-3">
+                  <BuildingOfficeIcon className="w-5 h-5 text-muted-foreground" />
+                  <span className="text-sm">{user.organizationName}</span>
+                </div>
+              )}
               
-              <div className="flex items-center space-x-3">
-                <CalendarIcon className="w-5 h-5 text-muted-foreground" />
-                <span className="text-sm">
-                  Member since {user.createdAt.toLocaleDateString()}
-                </span>
-              </div>
+              {user.createdAt && (
+                <div className="flex items-center space-x-3">
+                  <CalendarIcon className="w-5 h-5 text-muted-foreground" />
+                  <span className="text-sm">
+                    Member since {new Date(user.createdAt).toLocaleDateString()}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         }
         actions={
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={onEditProfile}
-          >
-            <PencilIcon className="w-4 h-4 mr-2" />
-            Edit Profile
-          </Button>
+          onEditProfile && (
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={onEditProfile}
+            >
+              <PencilIcon className="w-4 h-4 mr-2" />
+              Edit Profile
+            </Button>
+          )
         }
       />
 
@@ -183,6 +243,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ onEditProfile }) => {
                 variant="destructive"
                 onClick={() => setShowLogoutConfirm(true)}
                 className="w-full"
+                disabled={loggingOut}
               >
                 <ArrowRightOnRectangleIcon className="w-4 h-4 mr-2" />
                 Sign Out
@@ -197,13 +258,15 @@ const UserProfile: React.FC<UserProfileProps> = ({ onEditProfile }) => {
                     variant="destructive"
                     onClick={handleLogout}
                     className="flex-1"
+                    disabled={loggingOut}
                   >
-                    Yes, Sign Out
+                    {loggingOut ? 'Signing Out...' : 'Yes, Sign Out'}
                   </Button>
                   <Button
                     variant="outline"
                     onClick={() => setShowLogoutConfirm(false)}
                     className="flex-1"
+                    disabled={loggingOut}
                   >
                     Cancel
                   </Button>

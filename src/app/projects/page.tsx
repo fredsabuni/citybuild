@@ -1,26 +1,81 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Layout } from '@/components/layout';
 import { CardWidget, ListWidget } from '@/components/widgets';
 import { Button, Badge } from '@/components/ui';
-import { mockProjects } from '@/data/mockProjects';
 import { formatCurrency, formatDate } from '@/lib/utils';
+import { fetchWithAuth } from '@/lib/fetchWithAuth';
 import { PlusIcon } from '@heroicons/react/24/outline';
+
+type ProjectStatus = 'DRAFT' | 'ACTIVE' | 'BIDDING' | 'AWARDED' | 'COMPLETED';
 
 export default function ProjectsPage() {
   const [filter, setFilter] = useState<string>('all');
+  const [projects, setProjects] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const perPage = 20;
 
-  const filteredProjects = filter === 'all' 
-    ? mockProjects 
-    : mockProjects.filter(project => project.status === filter);
+  useEffect(() => {
+    fetchProjects();
+  }, [page, filter]);
+
+  const fetchProjects = async () => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams({
+        page: page.toString(),
+        per_page: perPage.toString(),
+      });
+
+      if (filter !== 'all') {
+        params.append('status', filter.toUpperCase());
+      }
+
+      const res = await fetchWithAuth(`/api/v1/projects/?${params}`);
+      
+      if (!res.ok) {
+        if (res.status === 401) {
+          // Auth modal will be shown by fetchWithAuth
+          return;
+        }
+        throw new Error('Failed to fetch projects');
+      }
+
+      const data = await res.json();
+      setProjects(data.projects || []);
+      setTotalPages(data.total_pages || 1);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+      setProjects([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getStatusBadgeVariant = (status: string) => {
+    switch (status.toUpperCase()) {
+      case 'ACTIVE':
+        return 'success';
+      case 'BIDDING':
+        return 'warning';
+      case 'COMPLETED':
+        return 'default';
+      case 'DRAFT':
+        return 'secondary';
+      default:
+        return 'secondary';
+    }
+  };
 
   const renderProjectCard = (project: any) => (
     <CardWidget
       key={project.id}
       title={project.name}
-      variant={project.status === 'active' ? 'highlighted' : 'default'}
+      variant={project.status === 'ACTIVE' ? 'highlighted' : 'default'}
       content={
         <div className="space-y-3">
           <p className="text-sm text-muted-foreground line-clamp-2">
@@ -30,7 +85,7 @@ export default function ProjectsPage() {
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
               <span className="text-muted-foreground">Budget:</span>
-              <div className="font-medium">{formatCurrency(project.estimatedCost || 0)}</div>
+              <div className="font-medium">{formatCurrency(project.estimated_cost || 0)}</div>
             </div>
             <div>
               <span className="text-muted-foreground">Timeline:</span>
@@ -38,35 +93,25 @@ export default function ProjectsPage() {
             </div>
             <div>
               <span className="text-muted-foreground">Created:</span>
-              <div className="font-medium">{formatDate(project.createdAt)}</div>
+              <div className="font-medium">{formatDate(new Date(project.created_at))}</div>
             </div>
             <div>
               <span className="text-muted-foreground">Status:</span>
               <div>
-                <Badge
-                  variant={
-                    project.status === 'active'
-                      ? 'success'
-                      : project.status === 'bidding'
-                      ? 'warning'
-                      : project.status === 'completed'
-                      ? 'default'
-                      : 'secondary'
-                  }
-                >
+                <Badge variant={getStatusBadgeVariant(project.status)}>
                   {project.status}
                 </Badge>
               </div>
             </div>
           </div>
 
-          {project.planFiles && project.planFiles.length > 0 && (
+          {project.project_files && project.project_files.length > 0 && (
             <div>
               <span className="text-sm text-muted-foreground">Files:</span>
               <div className="mt-1 space-y-1">
-                {project.planFiles.map((file: any) => (
+                {project.project_files.map((file: any) => (
                   <div key={file.id} className="text-xs bg-muted px-2 py-1 rounded">
-                    📄 {file.name}
+                    📄 {file.filename}
                   </div>
                 ))}
               </div>
@@ -81,7 +126,7 @@ export default function ProjectsPage() {
               View Details
             </Button>
           </Link>
-          {project.status === 'draft' && (
+          {project.status === 'DRAFT' && (
             <Button size="sm">
               Publish
             </Button>
@@ -151,30 +196,64 @@ export default function ProjectsPage() {
         </div>
 
         {/* Projects List */}
-        <ListWidget
-          items={filteredProjects}
-          renderItem={renderProjectCard}
-          emptyState={
-            <div className="text-center py-12">
-              <div className="w-16 h-16 mx-auto bg-muted rounded-full flex items-center justify-center mb-4">
-                <span className="text-2xl">🏗️</span>
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+            <p className="text-muted-foreground">Loading projects...</p>
+          </div>
+        ) : (
+          <ListWidget
+            items={projects}
+            renderItem={renderProjectCard}
+            emptyState={
+              <div className="text-center py-12">
+                <div className="w-16 h-16 mx-auto bg-muted rounded-full flex items-center justify-center mb-4">
+                  <span className="text-2xl">🏗️</span>
+                </div>
+                <h3 className="text-lg font-medium mb-2">
+                  {filter === 'all' ? 'No Projects Yet' : `No ${filter.toLowerCase()} Projects`}
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  {filter === 'all' 
+                    ? 'Start by creating your first construction project.'
+                    : `You don't have any ${filter.toLowerCase()} projects at the moment.`
+                  }
+                </p>
+                <Link href="/projects/create">
+                  <Button>
+                    <PlusIcon className="w-4 h-4 mr-2" />
+                    Create Project
+                  </Button>
+                </Link>
               </div>
-              <h3 className="text-lg font-medium mb-2">
-                {filter === 'all' ? 'No Projects Yet' : `No ${filter} Projects`}
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                {filter === 'all' 
-                  ? 'Start by creating your first construction project.'
-                  : `You don't have any ${filter} projects at the moment.`
-                }
-              </p>
-              <Button>
-                <PlusIcon className="w-4 h-4 mr-2" />
-                Create Project
-              </Button>
-            </div>
-          }
-        />
+            }
+          />
+        )}
+
+        {/* Pagination */}
+        {!loading && totalPages > 1 && (
+          <div className="flex justify-center gap-2 mt-6">
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={page === 1}
+              onClick={() => setPage(p => Math.max(1, p - 1))}
+            >
+              Previous
+            </Button>
+            <span className="px-4 py-2 text-sm">
+              Page {page} of {totalPages}
+            </span>
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={page === totalPages}
+              onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+            >
+              Next
+            </Button>
+          </div>
+        )}
       </div>
     </Layout>
   );

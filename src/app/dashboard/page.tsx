@@ -25,6 +25,7 @@ export default function DashboardPage() {
 
     switch (user.role) {
       case 'gc':
+      case 'admin':
         return <GCDashboard />;
       case 'subcontractor':
         return <SubcontractorDashboard />;
@@ -48,6 +49,7 @@ export default function DashboardPage() {
       subcontractor: 'Subcontractor',
       supplier: 'Supplier',
       bank: 'Bank',
+      admin: 'Administrator',
     };
     return roleNames[role as keyof typeof roleNames] || role;
   };
@@ -61,7 +63,7 @@ export default function DashboardPage() {
           </h1>
           {user && (
             <p className="text-muted-foreground">
-              {getRoleDisplayName(user.role)} Dashboard
+              {getRoleDisplayName(user.role || '')} Dashboard
             </p>
           )}
         </div>

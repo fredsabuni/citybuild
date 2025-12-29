@@ -10,6 +10,7 @@ interface AppContextType extends AppState {
   toggleTheme: () => void;
   setSidebarOpen: (open: boolean) => void;
   toggleSidebar: () => void;
+  setShowAuthModal: (show: boolean) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -20,6 +21,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     theme: 'light',
     sidebarOpen: false,
   });
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   // Initialize theme and user on mount
   useEffect(() => {
@@ -150,12 +152,14 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const value: AppContextType = {
     ...state,
+    showAuthModal,
     setUser,
     updateUserRole,
     setTheme,
     toggleTheme,
     setSidebarOpen,
     toggleSidebar,
+    setShowAuthModal,
   };
 
   return (
