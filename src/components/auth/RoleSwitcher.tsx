@@ -61,8 +61,8 @@ const RoleSwitcher: React.FC = () => {
     setIsOpen(false);
   };
 
-  const getRoleIcon = (role: UserRole) => {
-    const icons = {
+  const getRoleIcon = (role: UserRole): string => {
+    const icons: Record<UserRole, string> = {
       gc: '🏗️',
       subcontractor: '🔨',
       supplier: '🚛',
@@ -72,7 +72,7 @@ const RoleSwitcher: React.FC = () => {
   };
 
   const getRoleLabel = (role: UserRole) => {
-    const labels = {
+    const labels: Record<UserRole, string> = {
       gc: 'General Contractor',
       subcontractor: 'Subcontractor',
       supplier: 'Supplier',
@@ -122,7 +122,7 @@ const RoleSwitcher: React.FC = () => {
               <div className="mb-3 p-2 bg-muted/50 rounded-lg">
                 <div className="text-xs text-muted-foreground">Current User:</div>
                 <div className="flex items-center space-x-2 mt-1">
-                  <span className="text-sm">{getRoleIcon(user.role)}</span>
+                  <span className="text-sm">{user.role && getRoleIcon(user.role)}</span>
                   <span className="text-sm font-medium">{user.name}</span>
                 </div>
               </div>

@@ -64,8 +64,8 @@ export class DataGenerator {
 
   static generateUser(role: UserRole, index: number = 1): User {
     const id = `${role}-${index}`;
-    let name: string;
-    let email: string;
+    let name: string = '';
+    let email: string = '';
 
     switch (role) {
       case 'gc':
@@ -274,8 +274,10 @@ export class DataGenerator {
     const projects: Project[] = [];
     let projectIndex = 1;
     gcs.forEach(gc => {
-      for (let i = 0; i < projectsPerGC; i++) {
-        projects.push(this.generateProject(gc.id, projectIndex++));
+      if (gc.id) {
+        for (let i = 0; i < projectsPerGC; i++) {
+          projects.push(this.generateProject(gc.id, projectIndex++));
+        }
       }
     });
 
@@ -288,7 +290,9 @@ export class DataGenerator {
         const selectedSubcontractors = this.shuffleArray(subcontractors).slice(0, numBids);
         
         selectedSubcontractors.forEach(sub => {
-          bids.push(this.generateBid(project.id, sub.id, bidIndex++));
+          if (sub.id) {
+            bids.push(this.generateBid(project.id, sub.id, bidIndex++));
+          }
         });
       }
     });
@@ -297,8 +301,10 @@ export class DataGenerator {
     const notifications: Notification[] = [];
     let notificationIndex = 1;
     users.forEach(user => {
-      for (let i = 0; i < notificationsPerUser; i++) {
-        notifications.push(this.generateNotification(user.id, notificationIndex++));
+      if (user.id) {
+        for (let i = 0; i < notificationsPerUser; i++) {
+          notifications.push(this.generateNotification(user.id, notificationIndex++));
+        }
       }
     });
 

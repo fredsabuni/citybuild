@@ -5,6 +5,7 @@ import { CityBuildLogo } from '@/components/ui';
 import { SunIcon, MoonIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Image from 'next/image';
 
 export default function Home() {
   const { theme, toggleTheme } = useTheme();
@@ -37,7 +38,7 @@ export default function Home() {
             </button>
           </nav>
 
-          <div className="flex items-center space-x-4">
+          {/* <div className="flex items-center space-x-4">
             <button
               onClick={toggleTheme}
               className="p-2 rounded-lg border border-border hover:bg-accent transition-colors"
@@ -55,7 +56,7 @@ export default function Home() {
             >
               Get Started
             </button>
-          </div>
+          </div> */}
         </div>
       </header>
 
@@ -79,7 +80,7 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
               <button
-                onClick={() => router.push('/dashboard')}
+                onClick={() => scrollToSection('stakeholders')}
                 className="btn-primary text-lg px-10 py-4"
               >
                 Start Building Today
@@ -488,33 +489,27 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">Bank Partners</h2>
             <p className="text-xl text-muted-foreground">
-              Trusted financial institutions powering construction projects through CityBuild's verified marketplace
+              Partner with CityBuild to power construction projects through our verified marketplace
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-950/50 dark:to-indigo-900/50 border border-blue-200 dark:border-blue-700 rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300 transform hover:scale-105">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <span className="text-2xl font-bold text-white">CB</span>
+          {/* Call to Action */}
+          <div className="max-w-3xl mx-auto mb-16">
+            <div className="bg-gradient-to-br from-primary/10 via-accent/10 to-primary/5 border-2 border-primary rounded-2xl p-12 text-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <span className="text-3xl">🤝</span>
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-blue-800 dark:text-blue-200">Construction Bank</h3>
-              <p className="text-blue-700 dark:text-blue-300 text-sm">Specialized construction lending with integrated project financing</p>
-            </div>
-
-            <div className="bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-950/50 dark:to-emerald-900/50 border border-green-200 dark:border-green-700 rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300 transform hover:scale-105">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <span className="text-2xl font-bold text-white">PF</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-green-800 dark:text-green-200">Project Finance Co.</h3>
-              <p className="text-green-700 dark:text-green-300 text-sm">Real estate development financing and construction loans</p>
-            </div>
-
-            <div className="bg-gradient-to-br from-purple-50 to-pink-100 dark:from-purple-950/50 dark:to-pink-900/50 border border-purple-200 dark:border-purple-700 rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300 transform hover:scale-105">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <span className="text-2xl font-bold text-white">MB</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-purple-800 dark:text-purple-200">Metro Bank</h3>
-              <p className="text-purple-700 dark:text-purple-300 text-sm">Commercial banking with construction industry expertise</p>
+              <h3 className="text-3xl font-bold mb-4 text-primary">Become a Banking Partner</h3>
+              <p className="text-lg text-muted-foreground mb-8">
+                Join our network of financial institutions powering the future of construction procurement
+              </p>
+              <a 
+                href="tel:9195970020"
+                className="inline-flex items-center gap-3 px-10 py-4 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all duration-300 text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
+              >
+                <span className="text-2xl">📞</span>
+                <span>Join Us Now - Call (919) 597-0020</span>
+              </a>
             </div>
           </div>
 
@@ -581,68 +576,138 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <div className="bg-card border border-border rounded-2xl p-8 text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-primary to-brand-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">JS</span>
+              <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-6 border-2 border-primary">
+                <Image
+                  src="/image/team/Abraham P. Ng'hwani.jpeg"
+                  alt="Abraham P. Ng'hwani"
+                  width={80}
+                  height={80}
+                  className="object-cover w-full h-full"
+                />
               </div>
-              <h3 className="text-xl font-semibold mb-2">John Smith</h3>
-              <p className="text-primary font-medium mb-3">CEO & Co-Founder</p>
+              <h3 className="text-xl font-semibold mb-2">Abraham P. Ng'hwani</h3>
+              <p className="text-primary font-medium mb-3">Founder & CEO</p>
               <p className="text-muted-foreground text-sm">
-                15+ years in construction technology. Former VP of Engineering at BuildTech. Led digital transformation for $2B+ in construction projects.
+                Founded Abranova in 2016 with a $100M track record in real estate. Launched CityBuild in 2025 to revolutionize construction procurement with AI-native platform technology.
               </p>
             </div>
 
             <div className="bg-card border border-border rounded-2xl p-8 text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-secondary to-brand-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">MJ</span>
+              <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-6 border-2 border-secondary">
+                <Image
+                  src="/image/team/Leonardo Williams.jpeg"
+                  alt="Leonardo Williams"
+                  width={80}
+                  height={80}
+                  className="object-cover w-full h-full"
+                />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Maria Johnson</h3>
-              <p className="text-primary font-medium mb-3">CTO & Co-Founder</p>
+              <h3 className="text-xl font-semibold mb-2">Leonardo Williams</h3>
+              <p className="text-primary font-medium mb-3">Business Development</p>
               <p className="text-muted-foreground text-sm">
-                AI/ML expert with 12+ years at Google and Tesla. PhD in Computer Science. Specialized in GPU-native infrastructure and real-time processing.
+                Mayor of Durham and entrepreneur. Two-time Durham Teacher of the Year and NCCU graduate. Recognized by Triangle Business Journal's "40 Under 40" and President Biden.
               </p>
             </div>
 
             <div className="bg-card border border-border rounded-2xl p-8 text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-accent to-brand-400 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">RW</span>
+              <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-6 border-2 border-accent">
+                <Image
+                  src="/image/team/Xinjue Cao.jpeg"
+                  alt="Julia Cao"
+                  width={80}
+                  height={80}
+                  className="object-cover w-full h-full"
+                />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Robert Wilson</h3>
-              <p className="text-primary font-medium mb-3">VP of Operations</p>
+              <h3 className="text-xl font-semibold mb-2">Julia Cao</h3>
+              <p className="text-primary font-medium mb-3">Chief Financial Officer</p>
               <p className="text-muted-foreground text-sm">
-                20+ years in construction procurement. Former Director at Turner Construction. Deep expertise in supplier networks and project management.
+                7+ years in real estate investment. Architecture Master's from University of Tokyo. MBA from Duke University. CFA charterholder and active real estate investor.
               </p>
             </div>
 
             <div className="bg-card border border-border rounded-2xl p-8 text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-brand-600 to-primary rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">LC</span>
+              <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-6 border-2 border-primary">
+                <Image
+                  src="/image/team/Steven McClelland.jpeg"
+                  alt="Steven McClelland"
+                  width={80}
+                  height={80}
+                  className="object-cover w-full h-full"
+                />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Lisa Chen</h3>
-              <p className="text-primary font-medium mb-3">VP of Finance</p>
-              <p className="text-muted-foreground text-sm">
-                Former Goldman Sachs VP. Expert in construction finance and payment systems. Led $500M+ in construction project financing.
-              </p>
-            </div>
-
-            <div className="bg-card border border-border rounded-2xl p-8 text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-brand-500 to-secondary rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">DM</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">David Martinez</h3>
+              <h3 className="text-xl font-semibold mb-2">Steven McClelland</h3>
               <p className="text-primary font-medium mb-3">Head of Product</p>
               <p className="text-muted-foreground text-sm">
-                Product leader with 10+ years at Uber and Airbnb. Expert in marketplace dynamics and user experience design for complex B2B platforms.
+                25+ years building digital solutions. Former Director of Product at Twitter and VP at Yahoo!. Duke University Executive in Residence at Pratt School of Engineering.
               </p>
             </div>
 
             <div className="bg-card border border-border rounded-2xl p-8 text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-brand-400 to-accent rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">SK</span>
+              <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-6 border-2 border-brand-600">
+                <Image
+                  src="/image/team/Deborah Liu .jpeg"
+                  alt="Deborah Liu"
+                  width={80}
+                  height={80}
+                  className="object-cover w-full h-full"
+                />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Sarah Kim</h3>
-              <p className="text-primary font-medium mb-3">Head of Engineering</p>
+              <h3 className="text-xl font-semibold mb-2">Deborah Liu</h3>
+              <p className="text-primary font-medium mb-3">Advisory Board</p>
               <p className="text-muted-foreground text-sm">
-                Senior engineer from Microsoft Azure. Specialized in distributed systems and real-time data processing. Built scalable platforms for millions of users.
+                Silicon Valley leader with 20+ years in consumer technology. Former CEO of Ancestry and leader at Meta, PayPal, and eBay. Built multiple billion-dollar businesses.
+              </p>
+            </div>
+
+            <div className="bg-card border border-border rounded-2xl p-8 text-center">
+              <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-6 border-2 border-brand-500">
+                <Image
+                  src="/image/team/Lance Keller .jpeg"
+                  alt="Lance Keller"
+                  width={80}
+                  height={80}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Lance Keller</h3>
+              <p className="text-primary font-medium mb-3">Advisory Board</p>
+              <p className="text-muted-foreground text-sm">
+                Founder of Lifestyle Homes LLC. 20+ years in homebuilding and real estate development. Former senior leadership at KB Home and president of Elite Communities.
+              </p>
+            </div>
+
+            <div className="bg-card border border-border rounded-2xl p-8 text-center">
+              <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-6 border-2 border-brand-400">
+                <Image
+                  src="/image/team/Stevan Pardo.jpeg"
+                  alt="Stevan Pardo"
+                  width={80}
+                  height={80}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Stevan Pardo</h3>
+              <p className="text-primary font-medium mb-3">Advisory Board</p>
+              <p className="text-muted-foreground text-sm">
+                30+ years as construction litigator. Leading authority on Florida construction and corporate hospitality law. Represented all aspects of the construction industry.
+              </p>
+            </div>
+
+            <div className="bg-card border border-border rounded-2xl p-8 text-center">
+              <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-6 border-2 border-brand-300">
+                <Image
+                  src="/image/team/Michael Baxter.jpeg"
+                  alt="Michael Baxter"
+                  width={80}
+                  height={80}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Michael Baxter</h3>
+              <p className="text-primary font-medium mb-3">Advisory Board</p>
+              <p className="text-muted-foreground text-sm">
+                Co-Owner and President of Baxter Development and Fourth Generation Owner of Baxter Construction Company. Leading with Trust, Performance, and Results.
               </p>
             </div>
           </div>
@@ -659,7 +724,7 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button
-                onClick={() => router.push('/dashboard')}
+                onClick={() => scrollToSection('stakeholders')}
                 className="btn-primary text-lg px-10 py-4"
               >
                 Get Started Today
@@ -697,19 +762,29 @@ export default function Home() {
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Company</h4>
+              <h4 className="font-semibold mb-4">Contact Us</h4>
               <ul className="space-y-2 text-muted-foreground">
                 <li><button onClick={() => scrollToSection('team')} className="hover:text-foreground transition-colors">About Team</button></li>
-                <li><a href="/contact" className="hover:text-foreground transition-colors">Contact</a></li>
-                <li><a href="/careers" className="hover:text-foreground transition-colors">Careers</a></li>
-                <li><a href="/press" className="hover:text-foreground transition-colors">Press</a></li>
+                <li>
+                  <a href="tel:+19195970020" className="hover:text-foreground transition-colors flex items-center gap-2">
+                    <span>📞</span>
+                    <span>+1 (919) 597-0020</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:abraham@citybuild.io" className="hover:text-foreground transition-colors flex items-center gap-2">
+                    <span>✉️</span>
+                    <span>abraham@citybuild.io</span>
+                  </a>
+                </li>
+                {/* <li><a href="/careers" className="hover:text-foreground transition-colors">Careers</a></li> */}
               </ul>
             </div>
           </div>
 
           <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-muted-foreground text-sm">
-              © 2024 CityBuild. All rights reserved.
+              © 2025 CityBuild. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors text-sm">Privacy Policy</a>
