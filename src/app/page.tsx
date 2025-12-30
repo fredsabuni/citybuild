@@ -588,7 +588,7 @@ export default function Home() {
               <h3 className="text-xl font-semibold mb-2">Abraham P. Ng'hwani</h3>
               <p className="text-primary font-medium mb-3">Founder & CEO</p>
               <p className="text-muted-foreground text-sm">
-                Founder Abranova in 2016 with currently a $100M track record in construction and real estate development. Invented four patents and launched CityBuild℠ in 2025 to transform the construction transactions marketplace with an AI-native platform and integrated GPU models and technologies.
+                Founded Abranova in 2016 with currently a $100M track record in construction and real estate development. Invented four patents and launched CityBuild℠ in 2025 to transform the construction transactions marketplace with an AI-native platform and integrated GPU models and technologies.
               </p>
             </div>
 
@@ -637,7 +637,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl font-semibold mb-2">Steven McClelland</h3>
-              <p className="text-primary font-medium mb-3">Head of Product</p>
+              <p className="text-primary font-medium mb-3">Chief Product Officer</p>
               <p className="text-muted-foreground text-sm">
                 25+ years building digital solutions. Former Director of Product at Twitter and VP at Yahoo!. Duke University Executive in Residence at Pratt School of Engineering.
               </p>
