@@ -51,7 +51,7 @@ export default function Home() {
               )}
             </button> */}
             <button
-              onClick={() => router.push('/dashboard')}
+              onClick={() => scrollToSection('stakeholders')}
               className="px-6 py-2 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-colors"
             >
               Get Started
@@ -177,10 +177,11 @@ export default function Home() {
           {/* Tab Navigation */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             {[
-              { id: 'owner', label: 'Owner', icon: '👤' },
-              { id: 'contractor', label: 'General Contractor', icon: '👷' },
-              { id: 'subcontractor', label: 'Subcontractor', icon: '🔧' },
-              { id: 'supplier', label: 'Distributor', icon: '📦' }
+              { id: 'bank', label: 'Banks', icon: '🏦' },
+              { id: 'owner', label: 'Owners', icon: '👤' },
+              { id: 'contractor', label: 'General Contractors', icon: '👷' },
+              { id: 'subcontractor', label: 'Subcontractors', icon: '🔧' },
+              { id: 'supplier', label: 'Distributors', icon: '📦' }
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -199,12 +200,85 @@ export default function Home() {
 
           {/* Tab Content */}
           <div className="max-w-4xl mx-auto">
+            {activeTab === 'bank' && (
+              <div className="bg-card border border-border rounded-2xl p-8 lg:p-12">
+                <h3 className="text-3xl font-bold mb-6 text-center">Banks</h3>
+                <p className="text-lg text-muted-foreground mb-8 text-center">
+                  CityBuild℠ transforms construction lending by providing verified project data, real-time tracking, and transparent marketplace dynamics that reduce risk and streamline loan processing.
+                </p>
+                
+                <div className="flex justify-center mb-8">
+                  <button
+                    onClick={() => router.push('/dashboard?role=bank')}
+                    className="px-8 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                  >
+                    Sign In
+                  </button>
+                </div>
+                
+                <div className="grid lg:grid-cols-2 gap-8">
+                  <div>
+                    <h4 className="text-xl font-semibold mb-4">What You Get:</h4>
+                    <ul className="space-y-3 text-muted-foreground">
+                      <li className="flex items-start space-x-3">
+                        <span className="text-primary font-bold">•</span>
+                        <span>Complete project verification and funding requirements upfront</span>
+                      </li>
+                      <li className="flex items-start space-x-3">
+                        <span className="text-primary font-bold">•</span>
+                        <span>Real-time material costs and project progress tracking</span>
+                      </li>
+                      <li className="flex items-start space-x-3">
+                        <span className="text-primary font-bold">•</span>
+                        <span>Transparent marketplace reduces credit risk and uncertainty</span>
+                      </li>
+                      <li className="flex items-start space-x-3">
+                        <span className="text-primary font-bold">•</span>
+                        <span>Integrated payment systems with flexible terms and securitized credit</span>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-xl font-semibold mb-4">Benefits:</h4>
+                    <ul className="space-y-3 text-muted-foreground">
+                      <li className="flex items-start space-x-3">
+                        <span className="text-green-500 font-bold">✓</span>
+                        <span>Streamlined loan processing and faster approvals</span>
+                      </li>
+                      <li className="flex items-start space-x-3">
+                        <span className="text-green-500 font-bold">✓</span>
+                        <span>Lower default rates through verified funding and transparency</span>
+                      </li>
+                      <li className="flex items-start space-x-3">
+                        <span className="text-green-500 font-bold">✓</span>
+                        <span>Real-time project data for better risk assessment</span>
+                      </li>
+                      <li className="flex items-start space-x-3">
+                        <span className="text-green-500 font-bold">✓</span>
+                        <span>Access to verified construction marketplace data</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {activeTab === 'owner' && (
               <div className="bg-card border border-border rounded-2xl p-8 lg:p-12">
-                <h3 className="text-3xl font-bold mb-6 text-center">Owner</h3>
+                <h3 className="text-3xl font-bold mb-6 text-center">Owners</h3>
                 <p className="text-lg text-muted-foreground mb-8 text-center">
                   CityBuild℠ turns materials procurement from a relationship-driven black box into a real-time AI-powered marketplace where transparency, verification, and competitive bidding are built in from day one.
                 </p>
+                
+                <div className="flex justify-center mb-8">
+                  <button
+                    onClick={() => router.push('/dashboard?role=owner')}
+                    className="px-8 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                  >
+                    Sign In
+                  </button>
+                </div>
                 
                 <div className="grid lg:grid-cols-2 gap-8">
                   <div>
@@ -256,10 +330,19 @@ export default function Home() {
 
             {activeTab === 'contractor' && (
               <div className="bg-card border border-border rounded-2xl p-8 lg:p-12">
-                <h3 className="text-3xl font-bold mb-6 text-center">General Contractor</h3>
+                <h3 className="text-3xl font-bold mb-6 text-center">General Contractors</h3>
                 <p className="text-lg text-muted-foreground mb-8 text-center">
                   CityBuild℠ removes the procurement tax that steals your teams' time. Your crews focus on building; the marketplace does the bidding.
                 </p>
+                
+                <div className="flex justify-center mb-8">
+                  <button
+                    onClick={() => router.push('/dashboard?role=contractor')}
+                    className="px-8 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                  >
+                    Sign In
+                  </button>
+                </div>
                 
                 <div className="grid lg:grid-cols-2 gap-8">
                   <div>
@@ -311,10 +394,19 @@ export default function Home() {
 
             {activeTab === 'subcontractor' && (
               <div className="bg-card border border-border rounded-2xl p-8 lg:p-12">
-                <h3 className="text-3xl font-bold mb-6 text-center">Subcontractor</h3>
+                <h3 className="text-3xl font-bold mb-6 text-center">Subcontractors</h3>
                 <p className="text-lg text-muted-foreground mb-8 text-center">
                   CityBuild℠ is your competitive advantage wrapped into one workflow: it kills the back-office work, guarantees you the lowest material prices anywhere, and keeps cash moving.
                 </p>
+                
+                <div className="flex justify-center mb-8">
+                  <button
+                    onClick={() => router.push('/dashboard?role=subcontractor')}
+                    className="px-8 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                  >
+                    Sign In
+                  </button>
+                </div>
                 
                 <div className="grid lg:grid-cols-2 gap-8">
                   <div>
@@ -366,10 +458,19 @@ export default function Home() {
 
             {activeTab === 'supplier' && (
               <div className="bg-card border border-border rounded-2xl p-8 lg:p-12">
-                <h3 className="text-3xl font-bold mb-6 text-center">Distributor</h3>
+                <h3 className="text-3xl font-bold mb-6 text-center">Distributors</h3>
                 <p className="text-lg text-muted-foreground mb-8 text-center">
                   CityBuild℠ is a 24/7 demand engine that converts guesswork into verified project orders you can bid, win, and fulfill at scale—without your sales team burning the week chasing quotes.
                 </p>
+                
+                <div className="flex justify-center mb-8">
+                  <button
+                    onClick={() => router.push('/dashboard?role=supplier')}
+                    className="px-8 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                  >
+                    Sign In
+                  </button>
+                </div>
                 
                 <div className="grid lg:grid-cols-2 gap-8">
                   <div>
@@ -504,11 +605,11 @@ export default function Home() {
                 Join our network of financial institutions powering the future of construction procurement
               </p>
               <a 
-                href="tel:9195970020"
+                href="mailto:abraham@citybuild.io?subject=Banking%20Partnership%20Inquiry"
                 className="inline-flex items-center gap-3 px-10 py-4 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all duration-300 text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
               >
-                <span className="text-2xl">📞</span>
-                <span>Join Us Now - Call (919) 597-0020</span>
+                <span className="text-2xl">✉️</span>
+                <span>Email Us</span>
               </a>
             </div>
           </div>
@@ -745,19 +846,22 @@ export default function Home() {
         <div className="container mx-auto px-4 py-12">
           <div className="grid md:grid-cols-4 gap-8">
             <div className="md:col-span-2">
-              <CityBuildLogo size="md" showText={true} />
+              <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:opacity-80 transition-opacity">
+                <CityBuildLogo size="md" showText={true} />
+              </button>
               <p className="text-muted-foreground mt-4 max-w-md">
                 Transforming construction procurement through AI-powered marketplace technology. Making projects more predictable, transparent, and efficient.
               </p>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Platform</h4>
+              <h4 className="font-semibold mb-4">How it Works</h4>
               <ul className="space-y-2 text-muted-foreground">
-                <li><button onClick={() => scrollToSection('how-it-works')} className="hover:text-foreground transition-colors">How It Works</button></li>
-                <li><button onClick={() => scrollToSection('stakeholders')} className="hover:text-foreground transition-colors">For Contractors</button></li>
-                <li><button onClick={() => scrollToSection('stakeholders')} className="hover:text-foreground transition-colors">For Suppliers</button></li>
-                <li><button onClick={() => scrollToSection('partners')} className="hover:text-foreground transition-colors">Bank Partners</button></li>
+                <li><button onClick={() => { setActiveTab('bank'); scrollToSection('stakeholders'); }} className="hover:text-foreground transition-colors">Banks</button></li>
+                <li><button onClick={() => { setActiveTab('owner'); scrollToSection('stakeholders'); }} className="hover:text-foreground transition-colors">Owners</button></li>
+                <li><button onClick={() => { setActiveTab('contractor'); scrollToSection('stakeholders'); }} className="hover:text-foreground transition-colors">General Contractors</button></li>
+                <li><button onClick={() => { setActiveTab('subcontractor'); scrollToSection('stakeholders'); }} className="hover:text-foreground transition-colors">Subcontractors</button></li>
+                <li><button onClick={() => { setActiveTab('supplier'); scrollToSection('stakeholders'); }} className="hover:text-foreground transition-colors">Distributors</button></li>
               </ul>
             </div>
 
