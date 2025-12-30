@@ -124,7 +124,7 @@ export default function Home() {
       <section id="how-it-works" className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-display-md text-primary mb-6">How CityBuild Works</h2>
+            <h2 className="text-display-md text-primary mb-6">How CityBuild℠ Works</h2>
             <p className="text-xl text-muted-foreground">
               Our AI reads your project plans the moment they're filed for permits—instantly generating a complete, trade-specific material list and routing it to a verified supplier network in real time.
             </p>
@@ -170,17 +170,17 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">Built for Every Stakeholder</h2>
             <p className="text-xl text-muted-foreground">
-              CityBuild transforms how every party in construction procurement works—making it easier, cheaper, faster, and fully transparent.
+              CityBuild℠ transforms how every party in construction procurement works—making it easier, cheaper, faster, and fully transparent.
             </p>
           </div>
 
           {/* Tab Navigation */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             {[
-              { id: 'owner', label: 'Owner / Developer', icon: '🏢' },
+              { id: 'owner', label: 'Owner', icon: '👤' },
               { id: 'contractor', label: 'General Contractor', icon: '👷' },
               { id: 'subcontractor', label: 'Subcontractor', icon: '🔧' },
-              { id: 'supplier', label: 'Distributor / Supplier', icon: '📦' }
+              { id: 'supplier', label: 'Distributor', icon: '📦' }
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -201,9 +201,9 @@ export default function Home() {
           <div className="max-w-4xl mx-auto">
             {activeTab === 'owner' && (
               <div className="bg-card border border-border rounded-2xl p-8 lg:p-12">
-                <h3 className="text-3xl font-bold mb-6 text-center">Owner / Developer</h3>
+                <h3 className="text-3xl font-bold mb-6 text-center">Owner</h3>
                 <p className="text-lg text-muted-foreground mb-8 text-center">
-                  City Build turns materials procurement from a relationship-driven black box into a real-time AI-powered marketplace where transparency, verification, and competitive bidding are built in from day one.
+                  CityBuild℠ turns materials procurement from a relationship-driven black box into a real-time AI-powered marketplace where transparency, verification, and competitive bidding are built in from day one.
                 </p>
                 
                 <div className="grid lg:grid-cols-2 gap-8">
@@ -258,7 +258,7 @@ export default function Home() {
               <div className="bg-card border border-border rounded-2xl p-8 lg:p-12">
                 <h3 className="text-3xl font-bold mb-6 text-center">General Contractor</h3>
                 <p className="text-lg text-muted-foreground mb-8 text-center">
-                  CityBuild removes the procurement tax that steals your teams' time. Your crews focus on building; the marketplace does the bidding.
+                  CityBuild℠ removes the procurement tax that steals your teams' time. Your crews focus on building; the marketplace does the bidding.
                 </p>
                 
                 <div className="grid lg:grid-cols-2 gap-8">
@@ -313,7 +313,7 @@ export default function Home() {
               <div className="bg-card border border-border rounded-2xl p-8 lg:p-12">
                 <h3 className="text-3xl font-bold mb-6 text-center">Subcontractor</h3>
                 <p className="text-lg text-muted-foreground mb-8 text-center">
-                  CityBuild is your competitive advantage wrapped into one workflow: it kills the back-office work, guarantees you the lowest material prices anywhere, and keeps cash moving.
+                  CityBuild℠ is your competitive advantage wrapped into one workflow: it kills the back-office work, guarantees you the lowest material prices anywhere, and keeps cash moving.
                 </p>
                 
                 <div className="grid lg:grid-cols-2 gap-8">
@@ -334,7 +334,7 @@ export default function Home() {
                       </li>
                       <li className="flex items-start space-x-3">
                         <span className="text-primary font-bold">•</span>
-                        <span>Project funding verified upfront—no extending credit</span>
+                        <span>Project funding verified upfront—no extending credit or dealing with non-paying clients</span>
                       </li>
                     </ul>
                   </div>
@@ -366,9 +366,9 @@ export default function Home() {
 
             {activeTab === 'supplier' && (
               <div className="bg-card border border-border rounded-2xl p-8 lg:p-12">
-                <h3 className="text-3xl font-bold mb-6 text-center">Distributor / Supplier</h3>
+                <h3 className="text-3xl font-bold mb-6 text-center">Distributor</h3>
                 <p className="text-lg text-muted-foreground mb-8 text-center">
-                  CityBuild is a 24/7 demand engine that converts guesswork into verified project orders you can bid, win, and fulfill at scale—without your sales team burning the week chasing quotes.
+                  CityBuild℠ is a 24/7 demand engine that converts guesswork into verified project orders you can bid, win, and fulfill at scale—without your sales team burning the week chasing quotes.
                 </p>
                 
                 <div className="grid lg:grid-cols-2 gap-8">
@@ -427,7 +427,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-rose-600 to-purple-600 bg-clip-text text-transparent">Key Differentiators</h2>
             <p className="text-xl text-muted-foreground">
-              What makes CityBuild the only platform that can deliver on these promises
+              What makes CityBuild℠ the only platform that can deliver on these promises
             </p>
           </div>
 
@@ -489,7 +489,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">Bank Partners</h2>
             <p className="text-xl text-muted-foreground">
-              Partner with CityBuild to power construction projects through our verified marketplace
+              Partner with CityBuild℠ to power construction projects through our verified marketplace
             </p>
           </div>
 
@@ -568,9 +568,9 @@ export default function Home() {
       <section id="team" className="py-20 bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50 dark:from-slate-950/20 dark:via-gray-950/20 dark:to-zinc-950/20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-slate-700 to-gray-800 dark:from-slate-300 dark:to-gray-200 bg-clip-text text-transparent">The CityBuild Team</h2>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">The City Build AI Team</h2>
             <p className="text-xl text-muted-foreground">
-              Industry veterans and technology experts building the future of construction procurement
+              Construction, real estate, and technology industry experts determined to build a new marketplace for construction transactions.
             </p>
           </div>
 
@@ -588,7 +588,7 @@ export default function Home() {
               <h3 className="text-xl font-semibold mb-2">Abraham P. Ng'hwani</h3>
               <p className="text-primary font-medium mb-3">Founder & CEO</p>
               <p className="text-muted-foreground text-sm">
-                Founded Abranova in 2016 with a $100M track record in real estate. Launched CityBuild in 2025 to revolutionize construction procurement with AI-native platform technology.
+                Founder Abranova in 2016 with currently a $100M track record in construction and real estate development. Invented four patents and launched CityBuild℠ in 2025 to transform the construction transactions marketplace with an AI-native platform and integrated GPU models and technologies.
               </p>
             </div>
 
@@ -605,7 +605,7 @@ export default function Home() {
               <h3 className="text-xl font-semibold mb-2">Leonardo Williams</h3>
               <p className="text-primary font-medium mb-3">Business Development</p>
               <p className="text-muted-foreground text-sm">
-                Mayor of Durham and entrepreneur. Two-time Durham Teacher of the Year and NCCU graduate. Recognized by Triangle Business Journal's "40 Under 40" and President Biden.
+                The Mayor of Durham, restaurateur and entrepreneur. Recognized by Triangle Business Journal's "40 Under 40" and President Biden.
               </p>
             </div>
 
@@ -622,7 +622,7 @@ export default function Home() {
               <h3 className="text-xl font-semibold mb-2">Julia Cao</h3>
               <p className="text-primary font-medium mb-3">Chief Financial Officer</p>
               <p className="text-muted-foreground text-sm">
-                7+ years in real estate investment. Architecture Master's from University of Tokyo. MBA from Duke University. CFA charterholder and active real estate investor.
+                7+ years in construction and real estate investment management. Bachelor and Master's in Architecture Engineering from University of Tokyo. MBA from Duke University. CFA charter holder and active real estate investor.
               </p>
             </div>
 
@@ -654,7 +654,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl font-semibold mb-2">Deborah Liu</h3>
-              <p className="text-primary font-medium mb-3">Advisory Board</p>
+              <p className="text-primary font-medium mb-3">Board Member</p>
               <p className="text-muted-foreground text-sm">
                 Silicon Valley leader with 20+ years in consumer technology. Former CEO of Ancestry and leader at Meta, PayPal, and eBay. Built multiple billion-dollar businesses.
               </p>
@@ -671,9 +671,9 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl font-semibold mb-2">Lance Keller</h3>
-              <p className="text-primary font-medium mb-3">Advisory Board</p>
+              <p className="text-primary font-medium mb-3">Board Member</p>
               <p className="text-muted-foreground text-sm">
-                Founder of Lifestyle Homes LLC. 20+ years in homebuilding and real estate development. Former senior leadership at KB Home and president of Elite Communities.
+                Founder of Lifestyle Homes, LLC with $0.3 billion annual revenue and 20+ years in homebuilding and real estate development. Former senior leadership at KB Home and president of Elite Communities.
               </p>
             </div>
 
@@ -688,9 +688,9 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl font-semibold mb-2">Stevan Pardo</h3>
-              <p className="text-primary font-medium mb-3">Advisory Board</p>
+              <p className="text-primary font-medium mb-3">Board Member</p>
               <p className="text-muted-foreground text-sm">
-                30+ years as construction litigator. Leading authority on Florida construction and corporate hospitality law. Represented all aspects of the construction industry.
+                30+ years as construction litigator. Leading authority on Florida construction and corporate hospitality law. Represented all aspects of the construction industry. Board member to a billion-dollar real estate private equity firm.
               </p>
             </div>
 
@@ -705,9 +705,9 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl font-semibold mb-2">Michael Baxter</h3>
-              <p className="text-primary font-medium mb-3">Advisory Board</p>
+              <p className="text-primary font-medium mb-3">Board Member</p>
               <p className="text-muted-foreground text-sm">
-                Co-Owner and President of Baxter Development and Fourth Generation Owner of Baxter Construction Company. Leading with Trust, Performance, and Results.
+                Co-Owner and President of Baxter Development and Fourth Generation Owner of Baxter Construction Company. Leading a $0.3 billion annual revenue company with Trust, Performance, and Results.
               </p>
             </div>
           </div>
@@ -784,7 +784,7 @@ export default function Home() {
 
           <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-muted-foreground text-sm">
-              © 2025 CityBuild. All rights reserved.
+              © 2025 City Build AI. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors text-sm">Privacy Policy</a>
