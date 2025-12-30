@@ -45,8 +45,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
     // Load theme
     const savedTheme = getFromStorage('theme') as 'light' | 'dark' | null;
-    const systemTheme = typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    const currentTheme = savedTheme || systemTheme;
+    const currentTheme = savedTheme || 'light'; // Default to light mode
+    
     
     // Load user from localStorage or set default
     const savedUser = getFromStorage('citybuild-user');
