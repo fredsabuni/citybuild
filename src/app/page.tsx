@@ -669,7 +669,7 @@ export default function Home() {
       <section id="team" className="py-20 bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50 dark:from-slate-950/20 dark:via-gray-950/20 dark:to-zinc-950/20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">The City Build AI Leadership</h2>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">The CityBuild℠ Leadership</h2>
             <p className="text-xl text-muted-foreground">
               Construction, real estate, and technology industry experts determined to build a new marketplace for construction transactions.
             </p>
@@ -818,7 +818,7 @@ export default function Home() {
       <section className="py-20 bg-gradient-to-br from-primary/5 to-accent/5">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-display-md text-primary mb-6">Ready to Transform Your Construction Procurement?</h2>
+            <h2 className="text-display-md text-primary mb-6">Ready to Transform Your Construction <span style={{ color: 'var(--accent)' }}>Procurement?</span></h2>
             <p className="text-xl text-muted-foreground mb-12">
               Join the marketplace that's making construction easier, cheaper, faster—and fully transparent.
             </p>
