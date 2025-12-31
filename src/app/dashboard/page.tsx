@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Layout } from '@/components/layout';
 import { useApp } from '@/lib/context';
 import {
@@ -9,9 +10,39 @@ import {
   SupplierDashboard,
   BankDashboard,
 } from '@/components/dashboards';
+import { mockUsers } from '@/data/mockUsers';
+import { UserRole } from '@/types';
 
-export default function DashboardPage() {
-  const { user } = useApp();
+function DashboardContent() {
+  const { user, setUser } = useApp();
+  const searchParams = useSearchParams();
+
+  // Check for role parameter in URL and update user accordingly
+  useEffect(() => {
+    const roleParam = searchParams.get('role');
+    if (roleParam) {
+      // Map URL role parameters to user roles
+      const roleMapping: Record<string, UserRole> = {
+        'bank': 'bank',
+        'owner': 'gc', // Owners see GC dashboard for now
+        'contractor': 'gc',
+        'subcontractor': 'subcontractor',
+        'supplier': 'supplier',
+      };
+
+      const userRole = roleMapping[roleParam];
+      // Only update if the user doesn't exist or has a different role
+      if (userRole && (!user || user.role !== userRole)) {
+        // Find the mock user with this role
+        const mockUser = mockUsers.find(u => u.role === userRole);
+        if (mockUser) {
+          setUser(mockUser);
+          console.log('✅ User role set from URL parameter:', roleParam, '→', userRole);
+        }
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   const getDashboardContent = () => {
     if (!user) {
@@ -69,5 +100,22 @@ export default function DashboardPage() {
         {getDashboardContent()}
       </div>
     </Layout>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={
+      <Layout>
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Loading dashboard...</p>
+          </div>
+        </div>
+      </Layout>
+    }>
+      <DashboardContent />
+    </Suspense>
   );
 }

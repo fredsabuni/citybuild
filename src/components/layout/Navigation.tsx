@@ -119,8 +119,8 @@ const Navigation: React.FC<NavigationProps> = ({ userRole, onItemClick }) => {
   };
 
   return (
-    <nav className="p-4">
-      <div className="space-y-2">
+    <nav className="p-2 pt-0">
+      <div className="space-y-1">
         {filteredItems.map((item) => {
           const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
           const IconComponent = item.icon;

@@ -2,7 +2,7 @@
 
 import { useTheme } from '@/lib/context';
 import { CityBuildLogo } from '@/components/ui';
-import { SunIcon, MoonIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import {ChevronDownIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Image from 'next/image';
@@ -28,13 +28,13 @@ export default function Home() {
               How It Works
             </button>
             <button onClick={() => scrollToSection('stakeholders')} className="text-muted-foreground hover:text-foreground transition-colors">
-              For You
+              Users
             </button>
             <button onClick={() => scrollToSection('partners')} className="text-muted-foreground hover:text-foreground transition-colors">
               Partners
             </button>
             <button onClick={() => scrollToSection('team')} className="text-muted-foreground hover:text-foreground transition-colors">
-              Team
+              Leadership
             </button>
           </nav>
 
@@ -72,7 +72,7 @@ export default function Home() {
         <div className="container mx-auto px-4 py-20 lg:py-32 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-display-lg mb-8 text-primary">
-              Construction Procurement, Reimagined
+              Construction Procurement, <span style={{ color: 'var(--accent)' }}>Reimagined</span>
             </h1>
             <p className="text-xl lg:text-2xl text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto">
               Turn materials procurement from a relationship-driven black box into a real-time AI-powered marketplace where transparency, verification, and competitive bidding are built in from day one.
@@ -124,7 +124,7 @@ export default function Home() {
       <section id="how-it-works" className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-display-md text-primary mb-6">How CityBuild℠ Works</h2>
+            <h2 className="text-display-md text-primary mb-6">How CityBuild℠ <span style={{ color: 'var(--accent)' }}>Works</span></h2>
             <p className="text-xl text-muted-foreground">
               Our AI reads your project plans the moment they're filed for permits—instantly generating a complete, trade-specific material list and routing it to a verified supplier network in real time.
             </p>
@@ -210,7 +210,7 @@ export default function Home() {
                 <div className="flex justify-center mb-8">
                   <button
                     onClick={() => router.push('/dashboard?role=bank')}
-                    className="px-8 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                    className="px-8 py-3 bg-accent text-accent-foreground rounded-xl font-semibold hover:bg-accent/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                   >
                     Sign In
                   </button>
@@ -274,7 +274,7 @@ export default function Home() {
                 <div className="flex justify-center mb-8">
                   <button
                     onClick={() => router.push('/dashboard?role=owner')}
-                    className="px-8 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                    className="px-8 py-3 bg-accent text-accent-foreground rounded-xl font-semibold hover:bg-accent/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                   >
                     Sign In
                   </button>
@@ -338,7 +338,7 @@ export default function Home() {
                 <div className="flex justify-center mb-8">
                   <button
                     onClick={() => router.push('/dashboard?role=contractor')}
-                    className="px-8 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                    className="px-8 py-3 bg-accent text-accent-foreground rounded-xl font-semibold hover:bg-accent/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                   >
                     Sign In
                   </button>
@@ -402,7 +402,7 @@ export default function Home() {
                 <div className="flex justify-center mb-8">
                   <button
                     onClick={() => router.push('/dashboard?role=subcontractor')}
-                    className="px-8 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                    className="px-8 py-3 bg-accent text-accent-foreground rounded-xl font-semibold hover:bg-accent/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                   >
                     Sign In
                   </button>
@@ -466,7 +466,7 @@ export default function Home() {
                 <div className="flex justify-center mb-8">
                   <button
                     onClick={() => router.push('/dashboard?role=supplier')}
-                    className="px-8 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                    className="px-8 py-3 bg-accent text-accent-foreground rounded-xl font-semibold hover:bg-accent/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                   >
                     Sign In
                   </button>
@@ -669,7 +669,7 @@ export default function Home() {
       <section id="team" className="py-20 bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50 dark:from-slate-950/20 dark:via-gray-950/20 dark:to-zinc-950/20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">The City Build AI Team</h2>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">The City Build AI Leadership</h2>
             <p className="text-xl text-muted-foreground">
               Construction, real estate, and technology industry experts determined to build a new marketplace for construction transactions.
             </p>

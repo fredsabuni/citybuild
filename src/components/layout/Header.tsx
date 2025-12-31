@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useApp, useTheme } from '@/lib/context';
 import { Button, CityBuildLogo } from '@/components/ui';
@@ -68,8 +68,25 @@ const Header: React.FC = () => {
     );
   };
 
+  // Track header height and expose as CSS variable for layout spacing
+  const headerRef = useRef<HTMLElement | null>(null);
+
+  useLayoutEffect(() => {
+    const updateHeaderHeightVar = () => {
+      const h = headerRef.current?.offsetHeight ?? 0;
+      document.documentElement.style.setProperty('--header-height', `${h}px`);
+    };
+
+    updateHeaderHeightVar();
+    window.addEventListener('resize', updateHeaderHeightVar);
+    return () => window.removeEventListener('resize', updateHeaderHeightVar);
+  }, []);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-30 bg-card border-b-2 border-border shadow-sm backdrop-blur-sm">
+    <header
+      ref={headerRef}
+      className="fixed top-0 left-0 right-0 z-30 bg-card border-b-2 border-border shadow-sm backdrop-blur-sm"
+    >
       <div className="flex items-center justify-between px-4 py-3">
         {/* Left side - Logo and Mobile Menu */}
         <div className="flex items-center space-x-4">

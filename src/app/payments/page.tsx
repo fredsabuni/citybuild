@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Layout } from '@/components/layout';
+import { useApp } from '@/lib/context';
 import { 
   CreditCardIcon, 
   BanknotesIcon, 
@@ -39,8 +40,12 @@ interface PaymentMethod {
 }
 
 export default function PaymentsPage() {
+  const { user } = useApp();
   const [activeTab, setActiveTab] = useState<'overview' | 'pending' | 'history' | 'methods' | 'analytics'>('overview');
   const [showNewPayment, setShowNewPayment] = useState(false);
+  
+  // Check if user is a bank - only banks can create/manage payments
+  const isBankUser = user?.role === 'bank';
 
   // Mock data
   const payments: Payment[] = [
@@ -172,30 +177,35 @@ export default function PaymentsPage() {
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h1 className="text-display-md text-primary mb-2">
-              Payment Processing
+              {isBankUser ? 'Manage Payments' : 'My Payments'}
             </h1>
             <p className="text-muted-foreground">
-              Manage payments, track transactions, and handle financial operations
+              {isBankUser 
+                ? 'Manage payments, track transactions, and handle financial operations'
+                : 'View and track your payment history and status'
+              }
             </p>
           </div>
           
-          <div className="flex items-center space-x-4 mt-4 lg:mt-0">
-            <button className="flex items-center space-x-2 px-4 py-2 border-2 border-border rounded-xl hover:border-primary hover:bg-accent transition-colors">
-              <ArrowDownTrayIcon className="w-4 h-4" />
-              <span>Export</span>
-            </button>
-            <button className="flex items-center space-x-2 px-4 py-2 border-2 border-border rounded-xl hover:border-primary hover:bg-accent transition-colors">
-              <FunnelIcon className="w-4 h-4" />
-              <span>Filter</span>
-            </button>
-            <button 
-              onClick={() => setShowNewPayment(true)}
-              className="btn-primary flex items-center space-x-2"
-            >
-              <PlusIcon className="w-4 h-4" />
-              <span>New Payment</span>
-            </button>
-          </div>
+          {isBankUser && (
+            <div className="flex items-center space-x-4 mt-4 lg:mt-0">
+              <button className="flex items-center space-x-2 px-4 py-2 border-2 border-border rounded-xl hover:border-primary hover:bg-accent transition-colors">
+                <ArrowDownTrayIcon className="w-4 h-4" />
+                <span>Export</span>
+              </button>
+              <button className="flex items-center space-x-2 px-4 py-2 border-2 border-border rounded-xl hover:border-primary hover:bg-accent transition-colors">
+                <FunnelIcon className="w-4 h-4" />
+                <span>Filter</span>
+              </button>
+              <button 
+                onClick={() => setShowNewPayment(true)}
+                className="btn-primary flex items-center space-x-2"
+              >
+                <PlusIcon className="w-4 h-4" />
+                <span>New Payment</span>
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Overview Cards */}
@@ -267,8 +277,8 @@ export default function PaymentsPage() {
             { id: 'overview', label: 'Overview', icon: BanknotesIcon },
             { id: 'pending', label: 'Pending', icon: ClockIcon },
             { id: 'history', label: 'History', icon: CheckCircleIcon },
-            { id: 'methods', label: 'Payment Methods', icon: CreditCardIcon },
-            { id: 'analytics', label: 'Analytics', icon: () => <span className="w-4 h-4 flex items-center justify-center">📊</span> }
+            ...(isBankUser ? [{ id: 'methods', label: 'Payment Methods', icon: CreditCardIcon }] : []),
+            ...(isBankUser ? [{ id: 'analytics', label: 'Analytics', icon: () => <span className="w-4 h-4 flex items-center justify-center">📊</span> }] : [])
           ].map((tab) => (
             <button
               key={tab.id}

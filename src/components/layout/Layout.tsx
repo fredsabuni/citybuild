@@ -36,17 +36,19 @@ const Layout: React.FC<LayoutProps> = ({ children, userRole, theme }) => {
       {/* Desktop Layout */}
       <div className="flex">
         {/* Desktop Sidebar */}
-        <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 lg:top-16 lg:border-r-2 lg:border-border lg:bg-card">
-          <Navigation userRole={currentUserRole} />
+        <aside
+          className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:bottom-0 lg:border-r-2 lg:border-border lg:bg-card overflow-y-auto"
+          style={{ top: 'var(--header-height, 4.75rem)' }}
+        >
+          <div className="pt-6">
+            <Navigation userRole={currentUserRole} />
+          </div>
         </aside>
 
         {/* Main Content */}
         <main
-          className={cn(
-            'flex-1 min-h-screen',
-            'lg:ml-64', // Offset for desktop sidebar
-            'pt-16' // Offset for fixed header
-          )}
+          className={cn('flex-1 min-h-screen', 'lg:ml-64')}
+          style={{ paddingTop: 'calc(var(--header-height, 4.75rem) + 2rem)' }}
         >
           <div className="p-4 lg:p-6">
             {children}

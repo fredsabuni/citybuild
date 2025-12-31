@@ -9,6 +9,9 @@
   --font-mono: 'JetBrains Mono', monospace;
   --font-display: 'Bebas Neue', sans-serif;
 
+  /* Layout metrics */
+  --header-height: 4.75rem; /* fallback while JS measures actual height */
+
   /* Light Theme - "Blueprint" - Construction Red & Gold */
   --primary: #981C1E;
   --primary-light: #B8292C;
