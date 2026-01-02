@@ -6,6 +6,9 @@ export function setAuthModalCallback(callback: (show: boolean) => void) {
   authModalCallback = callback;
 }
 
+// API base URL - adjust this to match your backend
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
 export async function fetchWithAuth(
   url: string,
   options: RequestInit = {}
@@ -16,6 +19,9 @@ export async function fetchWithAuth(
     return localStorage.getItem('access_token');
   };
 
+  // Construct full URL with base URL
+  const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
+
   // Add authorization header if token exists
   const token = getToken();
   const headers = new Headers(options.headers);
@@ -24,8 +30,14 @@ export async function fetchWithAuth(
     headers.set('Authorization', `Bearer ${token}`);
   }
 
+  // Don't set Content-Type for FormData - browser will set it automatically with boundary
+  // Remove Content-Type if body is FormData to let browser handle it
+  if (options.body instanceof FormData) {
+    headers.delete('Content-Type');
+  }
+
   // Make the request
-  const response = await fetch(url, {
+  const response = await fetch(fullUrl, {
     ...options,
     headers,
   });
@@ -40,7 +52,7 @@ export async function fetchWithAuth(
     if (refreshToken) {
       try {
         // Attempt token refresh
-        const refreshResponse = await fetch('/api/v1/auth/refresh', {
+        const refreshResponse = await fetch(`${API_BASE_URL}/api/v1/auth/refresh`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ refresh_token: refreshToken }),
@@ -59,7 +71,7 @@ export async function fetchWithAuth(
 
           // Retry original request with new token
           headers.set('Authorization', `Bearer ${access_token}`);
-          return fetch(url, {
+          return fetch(fullUrl, {
             ...options,
             headers,
           });

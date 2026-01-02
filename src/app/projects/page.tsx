@@ -106,14 +106,36 @@ export default function ProjectsPage() {
           </div>
 
           {project.project_files && project.project_files.length > 0 && (
-            <div>
-              <span className="text-sm text-muted-foreground">Files:</span>
-              <div className="mt-1 space-y-1">
-                {project.project_files.map((file: any) => (
-                  <div key={file.id} className="text-xs bg-muted px-2 py-1 rounded">
-                    📄 {file.filename}
+            <div className="pt-3 border-t">
+              <span className="text-sm font-medium text-muted-foreground mb-2 block">
+                Files ({project.project_files.length})
+              </span>
+              <div className="space-y-1.5">
+                {project.project_files.slice(0, 3).map((file: any) => (
+                  <div 
+                    key={file.id} 
+                    className="flex items-center justify-between text-xs bg-muted px-2.5 py-1.5 rounded hover:bg-muted/80 transition-colors group"
+                  >
+                    <span className="truncate flex-1 font-medium">
+                      📄 {file.original_name || file.filename}
+                    </span>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.open(file.s3_url, '_blank');
+                      }}
+                      className="ml-2 text-primary hover:text-primary/80 opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      ⬇
+                    </button>
                   </div>
                 ))}
+                {project.project_files.length > 3 && (
+                  <div className="text-xs text-muted-foreground pl-2.5">
+                    +{project.project_files.length - 3} more file{project.project_files.length - 3 > 1 ? 's' : ''}
+                  </div>
+                )}
               </div>
             </div>
           )}
