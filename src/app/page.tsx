@@ -738,7 +738,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl font-semibold mb-2">Steven McClelland</h3>
-              <p className="text-primary font-medium mb-3">Chief Product Officer</p>
+              <p className="text-primary font-medium mb-3">Technology Advisor</p>
               <p className="text-muted-foreground text-sm">
                 25+ years building digital solutions. Former Director of Product at Twitter and VP at Yahoo!. Duke University Executive in Residence at Pratt School of Engineering.
               </p>
@@ -755,7 +755,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl font-semibold mb-2">Deborah Liu</h3>
-              <p className="text-primary font-medium mb-3">Board Member</p>
+              <p className="text-primary font-medium mb-3">Marketplace Advisor</p>
               <p className="text-muted-foreground text-sm">
                 Silicon Valley leader with 20+ years in consumer technology. Former CEO of Ancestry and leader at Meta, PayPal, and eBay. Built multiple billion-dollar businesses.
               </p>
@@ -772,7 +772,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl font-semibold mb-2">Lance Keller</h3>
-              <p className="text-primary font-medium mb-3">Board Member</p>
+              <p className="text-primary font-medium mb-3">Owner Advisor</p>
               <p className="text-muted-foreground text-sm">
                 Founder of Lifestyle Homes, LLC with $0.3 billion annual revenue and 20+ years in homebuilding and real estate development. Former senior leadership at KB Home and president of Elite Communities.
               </p>
@@ -789,7 +789,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl font-semibold mb-2">Stevan Pardo</h3>
-              <p className="text-primary font-medium mb-3">Board Member</p>
+              <p className="text-primary font-medium mb-3">Legal Advisor</p>
               <p className="text-muted-foreground text-sm">
                 30+ years as construction litigator. Leading authority on Florida construction and corporate hospitality law. Represented all aspects of the construction industry. Board member to a billion-dollar real estate private equity firm.
               </p>
@@ -806,7 +806,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl font-semibold mb-2">Michael Baxter</h3>
-              <p className="text-primary font-medium mb-3">Board Member</p>
+              <p className="text-primary font-medium mb-3">General Contractor Advisor</p>
               <p className="text-muted-foreground text-sm">
                 Co-Owner and President of Baxter Development and Fourth Generation Owner of Baxter Construction Company. Leading a $0.3 billion annual revenue company with Trust, Performance, and Results.
               </p>
